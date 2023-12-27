@@ -7,7 +7,7 @@ export function SignUp() {
   const navigate = useNavigate()
 
   const handleCWG = () => {
-    window.open("http://localhost:4400/register")
+    window.open("http://localhost:4400/register", "_self")
     // RegisterGoogleService().then((res) => {
     //   navigate("/auth/sign-in")
     //   console.log(res)
