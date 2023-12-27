@@ -6,13 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 export function SignUp() {
   const navigate = useNavigate()
 
-  const handleCWG = () => {
-    window.open("http://localhost:4400/register", "_self")
-    // RegisterGoogleService().then((res) => {
-    //   navigate("/auth/sign-in")
-    //   console.log(res)
-    // }).catch((err) => console.log(err))
-  }
+	const googleAuth = () => {
+		window.open(
+			`http://localhost:4400/api/v1/auth/google/callback`,
+			"_self"
+		);
+	};
 
   return (
     <section className="m-8 flex">
@@ -61,7 +60,7 @@ export function SignUp() {
                   </clipPath>
                 </defs>
               </svg>
-              <span onClick={handleCWG}>Continue With Google</span>
+              <span onClick={googleAuth}>Continue With Google</span>
             </Button>
             <Button size="lg" color="white" className="flex items-center gap-2 justify-center shadow-md" fullWidth>
               <img src="/img/twitter-logo.svg" height={24} width={24} alt="" />

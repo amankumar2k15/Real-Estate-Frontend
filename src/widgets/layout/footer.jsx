@@ -41,13 +41,13 @@ export function Footer({ brandName, brandLink, routes }) {
 }
 
 Footer.defaultProps = {
-  brandName: "Creative Tim",
-  brandLink: "https://www.creative-tim.com",
+  brandName: "Bharat Escrow",
+  brandLink: "https://bharatescrow.com/",
   routes: [
-    { name: "Creative Tim", path: "https://www.creative-tim.com" },
-    { name: "About Us", path: "https://www.creative-tim.com/presentation" },
-    { name: "Blog", path: "https://www.creative-tim.com/blog" },
-    { name: "License", path: "https://www.creative-tim.com/license" },
+    { name: "Bharat Escrow", path: "https://bharatescrow.com/" },
+    { name: "About Us", path: "https://bharatescrow.com/disclaimer" },
+    { name: "Blog", path: "https://bharatescrow.com/blog" },
+    { name: "How It Works", path: "https://bharatescrow.com/how-it-works" },
   ],
 };
 

@@ -6,18 +6,25 @@ import { StatisticsChart } from "@/widgets/charts";
 import { statisticsCardsData, statisticsChartsData, projectsTableData, ordersOverviewData, } from "@/data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
+import { setData, setToken } from "@/helper/tokenHelper";
 
 export function Home() {
 
-  // const getToken = async () => {
-  //   await axios.get("http://localhost:4400/login/success").then((res) => {
-  //     console.log(res)
-  //   }).catch((err) => console.log(err.message))
-  // }
+  const getUser = async () => {
+		try {
+			const url = `http://localhost:4400/api/v1/auth/login/success`;
+			const { data } = await axios.get(url, { withCredentials: true });
+       setToken(data.token)
+       setData(data.user)
+      console.log("dataaaa=> ", data);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
-  // useEffect(() => {
-  //   getToken()
-  // }, [])
+	useEffect(() => {
+		getUser();
+	}, []);
 
   return (
     <div className="mt-12">

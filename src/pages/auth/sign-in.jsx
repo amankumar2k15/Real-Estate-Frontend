@@ -6,11 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 export function SignIn() {
   const navigate = useNavigate()
 
-  const handleSignInWithGoogle = () => {
-    LoginService().then((res) => {
-      navigate("/home")
-    }).catch((err) => console.log(err))
-  }
+	const googleAuth = () => {
+		window.open(
+			`http://localhost:4400/api/v1/auth/google/callback`,
+			"_self"
+		);
+	};
+
 
   return (
     <section className="m-8 flex gap-4">
@@ -53,7 +55,7 @@ export function SignIn() {
                   </clipPath>
                 </defs>
               </svg>
-              <span onClick={handleSignInWithGoogle}>Sign in With Google</span>
+              <span onClick={googleAuth}>Sign in With Google</span>
             </Button>
             <Button size="lg" color="white" className="flex items-center gap-2 justify-center shadow-md" fullWidth>
               <img src="/img/twitter-logo.svg" height={24} width={24} alt="" />
