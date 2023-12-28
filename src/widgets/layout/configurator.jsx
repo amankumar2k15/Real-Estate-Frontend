@@ -44,7 +44,7 @@ export function Configurator() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { openConfigurator, sidenavColor, sidenavType, fixedNavbar } =
     controller;
-  const [stars, setStars]  = React.useState(0);
+  const [stars, setStars] = React.useState(0);
 
   const sidenavColors = {
     white: "from-gray-100 to-gray-100 border-gray-200",

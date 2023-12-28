@@ -19,6 +19,9 @@ export function Sidenav({ brandImg, brandName, routes }) {
     transparent: "bg-transparent",
   };
 
+
+  console.log(("getData" , getData("profile")));
+
   return (
     <aside
       className={`${sidenavTypes[sidenavType]} ${openSidenav ? "translate-x-0" : "-translate-x-80"
@@ -27,12 +30,15 @@ export function Sidenav({ brandImg, brandName, routes }) {
       <div
         className={`relative`}
       >
+        
         <Link to="/" className="py-6 px-8 text-center">
+          
           <Typography
             variant="h6"
             color={sidenavType === "dark" ? "white" : "blue-gray"}
           >
-            {brandName}
+            <img src={getData('profile')} height="40px" width="40px"/>
+            {getData('username')?.split(' ')[0] + " " + getData('username')?.split(' ')[1]|| brandName}
           </Typography>
         </Link>
         <IconButton
@@ -96,7 +102,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
 }
 
 Sidenav.defaultProps = {
-  brandImg:   "/img/logo-ct.png",
+  brandImg:   getData("profile"),
   brandName: "Bharat Escrow",
 };
 
