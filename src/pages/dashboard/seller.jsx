@@ -3,6 +3,7 @@ import { EllipsisVerticalIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { authorsTableData, projectsTableData } from "@/data";
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
+import RegisterUser from "@/components/RegisterUser";
 
 export function Seller() {
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -14,8 +15,6 @@ export function Seller() {
   const closeForm = () => {
     setIsFormVisible(false);
   };
-
-
 
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -113,7 +112,9 @@ export function Seller() {
       {true && (
         <>
           <div className="p-4 xl:ml-80">
-            <Modal closeForm={closeForm} isFormVisible={isFormVisible} />
+            <Modal closeForm={closeForm} isFormVisible={isFormVisible} >
+              <RegisterUser />
+            </Modal>
           </div>
         </>
       )}

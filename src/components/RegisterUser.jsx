@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { setFormValue } from '@/store/slice/sellerSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { RegisterSellerService } from '@/services/api.service';
+import { useNavigate } from 'react-router-dom';
+import { SyncLoader } from "react-spinners";
 
 const RegisterUser = () => {
+    const [isLoading, setLoading] = useState(false)
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const { data } = useSelector((state) => state.seller)
-    // console.log(data)
 
     const handleInput = (key, value) => {
         dispatch(setFormValue({ key, value }));
@@ -15,26 +20,28 @@ const RegisterUser = () => {
         dispatch(setFormValue({ key: selectedKey, value: selectedFile }))
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true)
         const formData = new FormData()
         // Append other data
         Object.keys(data).forEach((key) => {
             formData.append(key, data[key]);
         });
 
-        const config = {
-            headers: { "Content-Type": "multipart/form-data", },
-        };
+        ;
         //FormData---------------------------------------->
 
         try {
-            let res = await axios.post(`http://localhost:4400/api/v1/create-seller`, formData, config)
+            let res = await RegisterSellerService(formData)
             console.log(res)
             if (res) {
-                navigate("/home")
+                setLoading(false)
+                navigate("/dashboard/home")
                 toast.success(res.data.message)
             }
         } catch (err) {
+            setLoading(false)
             toast.success(err.response.data.message)
         }
     }
@@ -58,7 +65,7 @@ const RegisterUser = () => {
                             className="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                             id="fullName"
                             type="text"
-                            placeholder="Username"
+                            placeholder="Full Name"
                             value={data?.fullName || ""}
                             onChange={(e) => handleInput("fullName", e.target.value)}
                         />
@@ -289,7 +296,7 @@ const RegisterUser = () => {
                         type="button"
                         onClick={handleSubmit}
                     >
-                        Submit
+                        {isLoading ? <SyncLoader size={8} color="#fff" /> : "Submit"}
                     </button>
                 </div>
             </form>

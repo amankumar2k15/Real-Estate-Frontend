@@ -2,10 +2,9 @@ import React from "react";
 import { IconButton, Typography } from '@material-tailwind/react'
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useMaterialTailwindController, } from "@/context";
-import RegisterUser from "./RegisterUser";
 
 
-const Modal = ({ closeForm, isFormVisible }) => {
+const Modal = ({ closeForm, isFormVisible, children }) => {
     const [controller, dispatch] = useMaterialTailwindController();
     const { openConfigurator, sidenavColor, sidenavType, fixedNavbar } =
         controller;
@@ -43,9 +42,8 @@ const Modal = ({ closeForm, isFormVisible }) => {
                     </IconButton>
                 </div>
 
-                <div>
-                    <RegisterUser />
-                </div>
+                {children}
+
             </div>
 
         </aside>
