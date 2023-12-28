@@ -4,7 +4,7 @@ import { authorsTableData, projectsTableData } from "@/data";
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
 
-export function User() {
+export function Buyer() {
     const [isFormVisible, setIsFormVisible] = useState(false);
 
     const showForm = () => {
@@ -21,9 +21,7 @@ export function User() {
         <div className="mt-12 mb-8 flex flex-col gap-12">
             <Card>
                 <div className="flex w-full justify-end">
-                    <IconButton onClick={showForm}>
-                        <i className="fas fa-plus" />
-                    </IconButton>
+                    <button onClick={showForm} className="px-4 py-2 rounded-lg bg-black text-white hover:bg-black/80">Add Buyer</button>
                 </div>
                 <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
                     <table className="w-full min-w-[640px] table-auto">
@@ -112,8 +110,12 @@ export function User() {
 
 
             {/* //Form ================================================================================> */}
-            {isFormVisible && (
-                <Modal closeForm={closeForm} isFormVisible={isFormVisible} />
+            {true && (
+                <>
+                    <div className="p-4 xl:ml-80">
+                        <Modal closeForm={closeForm} isFormVisible={isFormVisible} />
+                    </div>
+                </>
             )}
             {/* //Form ================================================================================> */}
 
@@ -121,4 +123,4 @@ export function User() {
     );
 }
 
-export default User;
+export default Buyer;

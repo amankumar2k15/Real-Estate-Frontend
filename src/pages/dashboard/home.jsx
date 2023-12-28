@@ -11,20 +11,20 @@ import { setData, setToken } from "@/helper/tokenHelper";
 export function Home() {
 
   const getUser = async () => {
-		try {
-			const url = `http://localhost:4400/api/v1/auth/login/success`;
-			const { data } = await axios.get(url, { withCredentials: true });
-       setToken(data.token)
-       setData(data.user)
+    try {
+      const url = `http://localhost:4400/api/v1/auth/login/success`;
+      const { data } = await axios.get(url, { withCredentials: true });
+      setToken(data?.token)
+      setData(data?.user)
       console.log("dataaaa=> ", data);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-	useEffect(() => {
-		getUser();
-	}, []);
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <div className="mt-12">

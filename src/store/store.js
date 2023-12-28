@@ -1,13 +1,15 @@
 import dashboardReducer from "./slice/dashboardSlice";
 import sellerReducer from "./slice/sellerSlice";
 import buyerReducer from "./slice/buyerSlice";
-const { configureStore, combineReducers } = require("@reduxjs/toolkit");
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import userReducer from "./slice/userSlice";
 
 
 const rootReducer = combineReducers({
     dashboard: dashboardReducer,
     seller: sellerReducer,
     buyer: buyerReducer,
+    user: userReducer,
 })
 
 

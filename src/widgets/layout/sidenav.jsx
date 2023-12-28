@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Avatar,
@@ -8,9 +8,11 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
-import { getData } from "@/helper/tokenHelper";
+import { clearStorage, getData, removeToken } from "@/helper/tokenHelper";
+import { toast } from "react-toastify";
 
 export function Sidenav({ brandImg, brandName, routes }) {
+  const navigate = useNavigate()
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
   const sidenavTypes = {
@@ -20,7 +22,12 @@ export function Sidenav({ brandImg, brandName, routes }) {
   };
 
 
-  console.log(("getData" , getData("profile")));
+  const handleLogOut = () => {
+    navigate("/sign-in")
+    removeToken()
+    clearStorage()
+    toast.error("Logged out successfully")
+  }
 
   return (
     <aside
@@ -30,15 +37,15 @@ export function Sidenav({ brandImg, brandName, routes }) {
       <div
         className={`relative`}
       >
-        
+
         <Link to="/" className="py-6 px-8 text-center">
-          
+
           <Typography
             variant="h6"
             color={sidenavType === "dark" ? "white" : "blue-gray"}
           >
-            <img src={getData('profile')} height="40px" width="40px"/>
-            {getData('username')?.split(' ')[0] + " " + getData('username')?.split(' ')[1]|| brandName}
+            {/* <img src={getData('profile')} height="40px" width="40px" /> */}
+            {brandName}
           </Typography>
         </Link>
         <IconButton
@@ -97,12 +104,32 @@ export function Sidenav({ brandImg, brandName, routes }) {
           </ul>
         ))}
       </div>
+      <div className="mx-3.5 mt-4 mb-2">
+        <Button
+          variant={"text"}
+          color={"red"}
+          className="flex items-center gap-4 px-4 capitalize"
+          fullWidth
+          onClick={handleLogOut}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+            <path fillRule="evenodd" d="M16.5 3.75a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5h-6a1.5 1.5 0 0 1-1.5-1.5V15a.75.75 0 0 0-1.5 0v3.75a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5.25a3 3 0 0 0-3-3h-6a3 3 0 0 0-3 3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6ZM5.78 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 0 0 1.06-1.06l-1.72-1.72H15a.75.75 0 0 0 0-1.5H4.06l1.72-1.72a.75.75 0 0 0 0-1.06Z" clipRule="evenodd" />
+          </svg>
+
+          <Typography
+            color="inherit"
+            className="font-medium capitalize"
+          >
+            Log out
+          </Typography>
+        </Button>
+      </div>
     </aside>
   );
 }
 
 Sidenav.defaultProps = {
-  brandImg:   getData("profile"),
+  // brandImg: getData("profile"),
   brandName: "Bharat Escrow",
 };
 

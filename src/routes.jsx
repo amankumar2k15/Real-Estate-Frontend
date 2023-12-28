@@ -1,21 +1,21 @@
-import { HomeIcon, UserCircleIcon, TableCellsIcon, InformationCircleIcon, ServerStackIcon, RectangleStackIcon, } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications, User, Sellor } from "@/pages/dashboard";
+import { HomeIcon, UserCircleIcon, TableCellsIcon, InformationCircleIcon, ServerStackIcon, RectangleStackIcon } from "@heroicons/react/24/solid";
+import { Home, Profile, Trustee, Notifications, Seller, Buyer } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
 };
 
+
 export const routes = [
   {
     layout: "dashboard",
     pages: [
       { icon: <HomeIcon {...icon} />, name: "dashboard", path: "/home", element: <Home />, },
-      { icon: <UserCircleIcon {...icon} />, name: "user", path: "/user", element: <User />, },
-      { icon: <UserCircleIcon {...icon} />, name: "sellor", path: "/sellor", element: <Sellor />, },
-
+      { icon: <UserCircleIcon {...icon} />, name: "buyer", path: "/buyer", element: <Buyer />, },
+      { icon: <UserCircleIcon {...icon} />, name: "seller", path: "/seller", element: <Seller />, },
+      { icon: <TableCellsIcon {...icon} />, name: "trustee", path: "/trustee", element: <Trustee />, },
       { icon: <UserCircleIcon {...icon} />, name: "profile", path: "/profile", element: <Profile />, },
-      { icon: <TableCellsIcon {...icon} />, name: "tables", path: "/tables", element: <Tables />, },
       { icon: <InformationCircleIcon {...icon} />, name: "notifications", path: "/notifications", element: <Notifications />, },
     ],
   },

@@ -1,25 +1,26 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+
+export const fetchBuyerData = createAsyncThunk("data/fetchBuyerData", async () => {
+    // Api call here 
+})
 
 const buyerSlice = createSlice({
     name: "buyer",
     initialState: {
         data: []
     },
-    extraReducers: {
-        [fetchBuyerData.pending]: (state, action) => {
-            state.data = []
-        },
-        [fetchBuyerData.fulfilled]: (state, action) => {
-            state.data = action.payload
-        },
-        [fetchBuyerData.rejected]: (state, action) => {
-            state.data = []
-        },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchBuyerData.pending, (state, action) => {
+                state.data = []
+            })
+            .addCase(fetchBuyerData.fulfilled, (state, action) => {
+                state.data = action.payload
+            })
+            .addCase(fetchBuyerData.rejected, (state, action) => {
+                state.data = []
+            })
     }
-})
-
-export const fetchBuyerData = createAsyncThunk("data/fetchBuyerData", async () => {
-    // Api call here 
 })
 
 
