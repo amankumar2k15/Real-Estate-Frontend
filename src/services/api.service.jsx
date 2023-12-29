@@ -29,5 +29,8 @@ export const RegisterGoogleService = async () => {
 export const RegisterSellerService = async (data) => {
     return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}seller/create-seller`, data, config);
 };
+export const fetchSellerService = async () => {
+    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}seller/list-seller`);
+};
 
 

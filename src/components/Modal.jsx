@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useMaterialTailwindController, } from "@/context";
 
 
-const Modal = ({ closeForm, isFormVisible, children }) => {
+const Modal = ({ title,closeForm, isFormVisible, children }) => {
     const [controller, dispatch] = useMaterialTailwindController();
     const { openConfigurator, sidenavColor, sidenavType, fixedNavbar } =
         controller;
@@ -26,11 +26,11 @@ const Modal = ({ closeForm, isFormVisible, children }) => {
                 <div className="flex flex-row justify-between w-full px-8">
                     <div>
                         <Typography variant="h5" color="blue-gray">
-                            Add Seller
+                            {title || "pass prop to display"}
 
                         </Typography>
                         <Typography className="font-normal text-blue-gray-600">
-                            Add your seller here
+                           {/* {} */}
                         </Typography>
                     </div>
                     <IconButton

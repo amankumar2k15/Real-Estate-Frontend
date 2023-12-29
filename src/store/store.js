@@ -3,6 +3,8 @@ import sellerReducer from "./slice/sellerSlice";
 import buyerReducer from "./slice/buyerSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slice/userSlice";
+import headerReduce from "./slice/headerSlice";
+
 
 
 const rootReducer = combineReducers({
@@ -10,6 +12,7 @@ const rootReducer = combineReducers({
     seller: sellerReducer,
     buyer: buyerReducer,
     user: userReducer,
+    header: headerReduce,
 })
 
 

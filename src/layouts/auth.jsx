@@ -1,7 +1,21 @@
 import { Routes, Route } from "react-router-dom";
-import { ChartPieIcon, UserIcon, UserPlusIcon, ArrowRightOnRectangleIcon, } from "@heroicons/react/24/solid";
+import { ChartPieIcon, UserIcon, UserPlusIcon, ArrowRightOnRectangleIcon, ServerStackIcon, RectangleStackIcon, } from "@heroicons/react/24/solid";
 import { Navbar, Footer } from "@/widgets/layout";
-import routes from "@/routes";
+import { SignIn, SignUp } from "@/pages/auth";
+// import routes from "@/routes";
+const icon = {
+  className: "w-5 h-5 text-inherit",
+};
+const routes = [
+    {
+    title: "auth page",
+    layout: "auth",
+    pages: [
+      { icon: <ServerStackIcon {...icon} />, name: "sign in", path: "/sign-in", element: <SignIn />, },
+      { icon: <RectangleStackIcon {...icon} />, name: "sign up", path: "/sign-up", element: <SignUp />, },
+    ],
+  },
+]
 
 export function Auth() {
 

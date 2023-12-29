@@ -2,13 +2,19 @@ import { useLocation, Link } from "react-router-dom";
 import { Navbar, Typography, Button, IconButton, Breadcrumbs, Input, Menu, MenuHandler, MenuList, MenuItem, Avatar, } from "@material-tailwind/react";
 import { UserCircleIcon, Cog6ToothIcon, BellIcon, ClockIcon, CreditCardIcon, Bars3Icon, } from "@heroicons/react/24/solid";
 import { useMaterialTailwindController, setOpenConfigurator, setOpenSidenav, } from "@/context";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearch } from "@/store/slice/headerSlice";
 
 export function DashboardNavbar() {
+  const { url } = useSelector((state) => state.header)
   const [controller, dispatch] = useMaterialTailwindController();
+  const dispatchh = useDispatch()
+  const { search } = useSelector((state) => state.header)
+  const { role, profile, username } = useSelector((state) => state.user.data)
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
-
+  console.log("profile", profile);
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}
@@ -47,9 +53,14 @@ export function DashboardNavbar() {
           </Typography>
         </div>
         <div className="flex items-center">
-          <div className="mr-auto md:mr-4 md:w-56">
-            <Input label="Search" />
-          </div>
+          {
+            url !== pathname && <div className="mr-auto md:mr-4 md:w-56">
+              <Input label="Search" value={search} onChange={(e) => dispatchh(setSearch(e.target.value))} />
+            </div>
+          }
+
+
+          {/* profile edit  */}
           <IconButton
             variant="text"
             color="blue-gray"
@@ -58,21 +69,47 @@ export function DashboardNavbar() {
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
-          <Link to="/auth/sign-in">
+
+          <Link to="/dashboard/profile">
             <Button
               variant="text"
               color="blue-gray"
-              className="hidden items-center gap-1 px-4 xl:flex normal-case"
+              className="hidden items-center gap-1 font-12 px-4 xl:flex normal-case"
             >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-              Sign In
+              {
+                profile ?
+                  <img
+                    className="h-8 w-8 rounded-full object-cover object-center"
+                    src={profile}
+                    alt="natureimage"
+                  /> :
+                  <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+
+              }
+
+
+              {username ? username.split(' ')[0] + " " + username.split(' ')[1] : "user"}
             </Button>
+            {/* <img
+                className="h-8 w-8 rounded-full object-cover object-center"
+                src={profile}
+                alt="nature image"
+              /> */}
             <IconButton
               variant="text"
               color="blue-gray"
               className="grid xl:hidden"
             >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+              {
+                profile ?
+                  <img
+                    className="h-8 w-8 rounded-full object-cover object-center"
+                    src={profile}
+                    alt="nature image"
+                  /> :
+
+                  <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+              }
             </IconButton>
           </Link>
           <Menu>
@@ -153,13 +190,13 @@ export function DashboardNavbar() {
               </MenuItem>
             </MenuList>
           </Menu>
-          <IconButton
+          {/* <IconButton
             variant="text"
             color="blue-gray"
             onClick={() => setOpenConfigurator(dispatch, true)}
           >
             <Cog6ToothIcon className="h-5 w-5 text-blue-gray-500" />
-          </IconButton>
+          </IconButton> */}
         </div>
       </div>
     </Navbar>

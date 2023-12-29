@@ -25,8 +25,12 @@ const sellerSlice = createSlice({
     },
     reducers: {
         setFormValue: (state, action) => {
-            const { key, value } = action.payload
-            state.data[key] = value;
+            if(action.payload.type === "fill"){
+                const { key, value } = action.payload.data
+                state.data[key] = value;
+            }else{
+                state.data = action.payload.data
+            }
         }
     },
     extraReducers: (builder) => {

@@ -1,13 +1,22 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { IconButton } from "@material-tailwind/react";
 import { Sidenav, DashboardNavbar, Configurator, Footer, } from "@/widgets/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
+import { setSearch } from "@/store/slice/headerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
+  const dispatchh = useDispatch()
+  const { pathname } = useLocation()
+  const {role} = useSelector((state)=>state.user.data)
   const { sidenavType } = controller;
+  useEffect(() => {
+    dispatchh(setSearch(""))
+  }, [pathname]);
 
   return (
     <div className="min-h-screen bg-blue-gray-50/50">

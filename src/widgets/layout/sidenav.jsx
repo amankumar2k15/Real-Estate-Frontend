@@ -10,11 +10,14 @@ import {
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { clearStorage, getData, removeToken } from "@/helper/tokenHelper";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export function Sidenav({ brandImg, brandName, routes }) {
   const navigate = useNavigate()
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
+  const {role} = useSelector((state)=>state.user.data)
+
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
     white: "bg-white shadow-sm",
@@ -69,11 +72,11 @@ export function Sidenav({ brandImg, brandName, routes }) {
                   color={sidenavType === "dark" ? "white" : "blue-gray"}
                   className="font-black uppercase opacity-75"
                 >
-                  {title}
+                  {"title"}
                 </Typography>
               </li>
             )}
-            {pages.map(({ icon, name, path }) => (
+            {pages.filter((item)=>item.role !== "user" ).map(({ icon, name, path }) => (
               <li key={name}>
                 <NavLink to={`/${layout}${path}`}>
                   {({ isActive }) => (

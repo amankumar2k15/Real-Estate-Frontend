@@ -7,15 +7,21 @@ import { statisticsCardsData, statisticsChartsData, projectsTableData, ordersOve
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { setData, setToken } from "@/helper/tokenHelper";
+import { useDispatch } from "react-redux";
+import { setUserDetail } from "@/store/slice/userSlice";
+import { setSearch } from "@/store/slice/headerSlice";
 
 export function Home() {
+  const dispatch = useDispatch()
 
   const getUser = async () => {
     try {
       const url = `http://localhost:4400/api/v1/auth/login/success`;
       const { data } = await axios.get(url, { withCredentials: true });
       setToken(data?.token)
+      console.log("here in home");
       setData(data?.user)
+      dispatch(setUserDetail(data?.user))
       console.log("dataaaa=> ", data);
     } catch (err) {
       console.log(err);
@@ -24,6 +30,7 @@ export function Home() {
 
   useEffect(() => {
     getUser();
+    dispatch(setSearch(" "))
   }, []);
 
   return (

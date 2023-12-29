@@ -6,18 +6,19 @@ import { RegisterSellerService } from '@/services/api.service';
 import { useNavigate } from 'react-router-dom';
 import { SyncLoader } from "react-spinners";
 
-const RegisterUser = () => {
+const RegisterUser = ({ fetchSeller, closeForm }) => {
     const [isLoading, setLoading] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { data } = useSelector((state) => state.seller)
 
     const handleInput = (key, value) => {
-        dispatch(setFormValue({ key, value }));
+        dispatch(setFormValue({type :  "fill" , data : { key, value }}));
+       
     };
 
     const handleFileInput = (selectedKey, selectedFile) => {
-        dispatch(setFormValue({ key: selectedKey, value: selectedFile }))
+        dispatch(setFormValue({type :  "fill" , data : { key: selectedKey, value: selectedFile }}))
     }
 
     const handleSubmit = async (e) => {
@@ -37,8 +38,26 @@ const RegisterUser = () => {
             console.log(res)
             if (res) {
                 setLoading(false)
-                navigate("/dashboard/home")
-                toast.success(res.data.message)
+                // navigate("/dashboard/home")
+                fetchSeller()
+                closeForm()
+                dispatch(setFormValue({type : "empty",data : {
+                    fullName: null,
+                    email: null,
+                    phone: null,
+                    address: null,
+                    companyName: null,
+                    location: null,
+                    state: null,
+                    city: null,
+                    pincode: null,
+                    adhaar: null,
+                    companyPan: null,
+                    blankCheque: null,
+                    certificate_of_incorporate: null,
+                }}))
+
+                toast.success("Seller Added")
             }
         } catch (err) {
             setLoading(false)
