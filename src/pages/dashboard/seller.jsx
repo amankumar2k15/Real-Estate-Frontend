@@ -15,7 +15,7 @@ export function Seller() {
   const { pathname } = useLocation();
   const dispatch = useDispatch()
   const { tabeData } = useSelector((state) => state.dashboard);
-  const {search} = useSelector((state)=>state.header)
+  const { search } = useSelector((state) => state.header)
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   console.log(tabeData, "tabeData==================================");
@@ -23,6 +23,7 @@ export function Seller() {
   useEffect(() => {
     dispatch(setHeaderDetails(pathname))
   }, [])
+
   const showForm = () => {
     setIsFormVisible(true);
   };
@@ -52,7 +53,7 @@ export function Seller() {
           variant={true ? "text" : "text"}
           onClick={showForm}
           color="blue-grey"
-          className="text-blueGray-500 outline border-0 border border-black border-blueGray-500 hover:text-white   text-black  font-bold uppercase text-xs px-4 py-2 rounded  focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-black "
+          className="text-blueGray-500 outline  border border-black border-blueGray-500 hover:text-white   text-black  font-bold uppercase text-xs px-4 py-2 rounded  focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-black "
 
         >
           Add Seller
@@ -80,8 +81,9 @@ export function Seller() {
               </tr>
             </thead>
             <tbody>
-              {tabeData.filter((item)=>item?.fullName?.toLowerCase().includes(search.toLowerCase())).map(
-                ({ fullName, email, phone, isApproved, location, pincode, state, city, companyName }, key) => {
+
+              {tabeData.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase()))
+                .map(({ fullName, email, phone, isApproved, location, pincode, state, city, companyName }, key) => {
                   const className = `py-3 px-5 ${key === authorsTableData.length - 1
                     ? ""
                     : "border-b border-blue-gray-50"
@@ -153,9 +155,9 @@ export function Seller() {
                     </tr>
                   );
                 }
-              )}
-              
-              {tabeData.filter((item)=>item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData/></td> }
+                )}
+
+              {tabeData.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
             </tbody>
           </table>
         </CardBody>

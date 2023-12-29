@@ -15,6 +15,7 @@ export function DashboardNavbar() {
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
   console.log("profile", profile);
+  
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}

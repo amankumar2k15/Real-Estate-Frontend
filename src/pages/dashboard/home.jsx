@@ -19,10 +19,8 @@ export function Home() {
       const url = `http://localhost:4400/api/v1/auth/login/success`;
       const { data } = await axios.get(url, { withCredentials: true });
       setToken(data?.token)
-      console.log("here in home");
       setData(data?.user)
       dispatch(setUserDetail(data?.user))
-      console.log("dataaaa=> ", data);
     } catch (err) {
       console.log(err);
     }

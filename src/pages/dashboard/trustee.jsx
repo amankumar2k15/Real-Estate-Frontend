@@ -24,7 +24,7 @@ export function Trustee() {
           variant={true ? "text" : "text"}
           onClick={showForm} 
          color="blue-grey"
-          className="text-blueGray-500 outline border-0 border border-black border-blueGray-500 hover:text-white   text-black  font-bold uppercase text-xs px-4 py-2 rounded  focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-black "
+          className="text-blueGray-500 outline  border border-black border-blueGray-500 hover:text-white   text-black  font-bold uppercase text-xs px-4 py-2 rounded  focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-black "
           
         >
           Add Trustee

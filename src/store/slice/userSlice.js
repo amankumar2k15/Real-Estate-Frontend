@@ -5,17 +5,16 @@ export const fetchUserData = createAsyncThunk("data/fetchUserData", async () => 
 })
 
 
-
 const userSlice = createSlice({
     name: "user",
     initialState: {
         data: {
             _id: "",
-            username: "user",
+            username: "John Doe",
             googleId: "",
             email: "Alex Motes",
             phone: 9999889900,
-            profile: "https://lh3.googleusercontent.com/a/ACg8ocI5WML1iSWIxTXrm4OduR3M0v_kQvM6ep8-DvBs_yCLPnh2=s96-c",
+            profile: "",
             role: "user",
         },
         role: "user"
@@ -27,7 +26,6 @@ const userSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-
         builder
             .addCase(fetchUserData.pending, (state, action) => {
                 state.data = []

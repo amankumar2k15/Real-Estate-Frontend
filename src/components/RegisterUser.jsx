@@ -13,12 +13,12 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
     const { data } = useSelector((state) => state.seller)
 
     const handleInput = (key, value) => {
-        dispatch(setFormValue({type :  "fill" , data : { key, value }}));
-       
+        dispatch(setFormValue({ type: "fill", data: { key, value } }));
+
     };
 
     const handleFileInput = (selectedKey, selectedFile) => {
-        dispatch(setFormValue({type :  "fill" , data : { key: selectedKey, value: selectedFile }}))
+        dispatch(setFormValue({ type: "fill", data: { key: selectedKey, value: selectedFile } }))
     }
 
     const handleSubmit = async (e) => {
@@ -37,31 +37,33 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
             let res = await RegisterSellerService(formData)
             console.log(res)
             if (res) {
-                setLoading(false)
                 // navigate("/dashboard/home")
                 fetchSeller()
                 closeForm()
-                dispatch(setFormValue({type : "empty",data : {
-                    fullName: null,
-                    email: null,
-                    phone: null,
-                    address: null,
-                    companyName: null,
-                    location: null,
-                    state: null,
-                    city: null,
-                    pincode: null,
-                    adhaar: null,
-                    companyPan: null,
-                    blankCheque: null,
-                    certificate_of_incorporate: null,
-                }}))
+                dispatch(setFormValue({
+                    type: "empty", data: {
+                        fullName: null,
+                        email: null,
+                        phone: null,
+                        address: null,
+                        companyName: null,
+                        location: null,
+                        state: null,
+                        city: null,
+                        pincode: null,
+                        adhaar: null,
+                        companyPan: null,
+                        blankCheque: null,
+                        certificate_of_incorporate: null,
+                    }
+                }))
 
                 toast.success("Seller Added")
             }
         } catch (err) {
-            setLoading(false)
             toast.success(err.response.data.message)
+        } finally {
+            setLoading(false)
         }
     }
 

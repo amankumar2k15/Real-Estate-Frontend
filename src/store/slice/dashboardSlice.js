@@ -9,11 +9,11 @@ const dashboardSlice = createSlice({
     name: "dashboard",
     initialState: {
         data: [],
-        tabeData : []
+        tabeData: []
     },
-    reducers : {
-        setTableData : (state,action)=>{
-            console.log("action ==================" , action);
+    reducers: {
+        setTableData: (state, action) => {
+            console.log("action ==================", action);
             state.tabeData = action.payload
         }
     },

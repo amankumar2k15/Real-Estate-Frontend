@@ -14,6 +14,7 @@ export function Dashboard() {
   const { pathname } = useLocation()
   const {role} = useSelector((state)=>state.user.data)
   const { sidenavType } = controller;
+  
   useEffect(() => {
     dispatchh(setSearch(""))
   }, [pathname]);

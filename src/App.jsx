@@ -5,13 +5,13 @@ import { getToken } from "./helper/tokenHelper";
 
 
 function App() {
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
   const token = getToken()
   const navigate = useNavigate()
-  
-useEffect(()=>{
-if(!token) return navigate("/auth/sign-up")
-},[])
+
+  // useEffect(() => {
+  //   if (!token) return navigate("/auth/sign-up")
+  // }, [])
   return (
     <Routes>
       <Route path="/dashboard/*" element={<Dashboard />} />
