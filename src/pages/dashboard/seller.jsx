@@ -11,16 +11,18 @@ import { fetchSellerService } from "@/services/api.service";
 import { setTableData } from "@/store/slice/dashboardSlice";
 import NoData from "@/components/NoData";
 import IndividualProfile from "@/components/individualProfile";
+import { setIndividualOpen } from "@/store/slice/sellerSlice";
 
 export function Seller() {
   const { pathname } = useLocation();
   const dispatch = useDispatch()
   const { tabeData } = useSelector((state) => state.dashboard);
+  const { isIndividualOpen } = useSelector((state) => state.seller);
   const { search } = useSelector((state) => state.header)
-  const [isIndividual , setIndividualOpen] = useState({isOpen : false , userId : null})
+  const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
 
   const [isFormVisible, setIsFormVisible] = useState(false);
-  console.log(tabeData, "tabeData==================================");
+  // console.log(tabeData, "tabeData==================================");
 
   useEffect(() => {
     dispatch(setHeaderDetails(pathname))
@@ -37,7 +39,7 @@ export function Seller() {
 
   const fetchSeller = () => {
     fetchSellerService().then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch(setTableData(res?.data.result))
     }).catch((err) => {
       console.log(err);
@@ -46,12 +48,13 @@ export function Seller() {
 
   useEffect(() => {
     fetchSeller()
+    console.log("aman")
   }, [])
 
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       {
-        !isIndividual.isOpen ?
+        !isIndividualOpen ?
           <>
             <div className="flex w-full justify-end pb-0">
               <Button
@@ -96,8 +99,9 @@ export function Seller() {
 
                         return (
                           <tr key={seller.fullName}>
-                            <td className={className} onClick={(e)=>setIndividualOpen({isOpen : true , data : seller  })}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
+                            <td className={className}
+                              onClick={(e) => { dispatch(setIndividualOpen(true)), setIndividualData({ isOpen: true, data: seller }) }}>
+                              <Typography className="text-xs capitalize font-semibold cursor-pointer hover:text-blue-gray-800 hover:underline text-blue-gray-600">
                                 {seller.fullName}
                               </Typography>
                             </td>
@@ -145,14 +149,14 @@ export function Seller() {
                               <Typography
                                 as="a"
                                 href="#"
-                                className="text-xs hover:text-green-200 px-2 font-semibold text-blue-gray-600"
+                                className="text-xs hover:text-green-200 px-2 font-semibold text-green-600"
                               >
                                 Edit
                               </Typography>
                               <Typography
                                 as="a"
                                 href="#"
-                                className="text-xs hover:text-red-200 px-2 font-semibold text-blue-gray-600"
+                                className="text-xs hover:text-red-200 px-2 font-semibold text-red-600"
                               >
                                 Delete
                               </Typography>
@@ -167,7 +171,9 @@ export function Seller() {
                 </table>
               </CardBody>
             </Card>
-          </> :
+          </>
+
+          :
 
           <IndividualProfile data={isIndividual.data} />
 

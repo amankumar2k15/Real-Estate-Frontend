@@ -13,7 +13,7 @@ const dashboardSlice = createSlice({
     },
     reducers: {
         setTableData: (state, action) => {
-            console.log("action ==================", action);
+            // console.log("action ==================", action);
             state.tabeData = action.payload
         }
     },

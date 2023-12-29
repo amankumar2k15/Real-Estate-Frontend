@@ -10,13 +10,15 @@ import {
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { clearStorage, getData, removeToken } from "@/helper/tokenHelper";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setIndividualOpen } from "@/store/slice/sellerSlice";
 
 export function Sidenav({ brandImg, brandName, routes }) {
+  const dispatchh = useDispatch()
   const navigate = useNavigate()
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
-  const {role} = useSelector((state)=>state.user.data)
+  const { role } = useSelector((state) => state.user.data)
 
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
@@ -76,11 +78,11 @@ export function Sidenav({ brandImg, brandName, routes }) {
                 </Typography>
               </li>
             )}
-            {pages.filter((item)=>item.role !== "user" ).map(({ icon, name, path }) => (
+            {pages.filter((item) => item.role !== "user").map(({ icon, name, path }) => (
               <li key={name}>
                 <NavLink to={`/${layout}${path}`}>
                   {({ isActive }) => (
-                    <Button
+                    <Button onClick={() => dispatchh(setIndividualOpen(false))}
                       variant={isActive ? "gradient" : "text"}
                       color={
                         isActive

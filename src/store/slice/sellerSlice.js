@@ -22,15 +22,19 @@ const sellerSlice = createSlice({
             blankCheque: null,
             certificate_of_incorporate: null,
         },
+        isIndividualOpen: false
     },
     reducers: {
         setFormValue: (state, action) => {
-            if(action.payload.type === "fill"){
+            if (action.payload.type === "fill") {
                 const { key, value } = action.payload.data
                 state.data[key] = value;
-            }else{
+            } else {
                 state.data = action.payload.data
             }
+        },
+        setIndividualOpen: (state, action) => {
+            state.isIndividualOpen = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -49,5 +53,5 @@ const sellerSlice = createSlice({
 })
 
 
-export const { setFormValue } = sellerSlice.actions
+export const { setFormValue, setIndividualOpen } = sellerSlice.actions
 export default sellerSlice.reducer;
