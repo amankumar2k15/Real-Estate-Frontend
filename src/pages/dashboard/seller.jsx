@@ -12,6 +12,7 @@ import NoData from "@/components/NoData";
 import IndividualProfile from "@/components/IndividualProfile";
 import { setIndividualOpen } from "@/store/slice/sellerSlice";
 import RegisterSeller from "@/components/RegisterSeller";
+import Pagination from "@/components/pagination";
 
 export function Seller() {
   const { pathname } = useLocation();
@@ -170,7 +171,7 @@ export function Seller() {
               </CardBody>
             </Card>
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-start">
               <Pagination />
             </div>
           </>
