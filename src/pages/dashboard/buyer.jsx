@@ -8,9 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBuyerService } from "@/services/api.service";
 import { setTableData } from "@/store/slice/dashboardSlice";
 import NoData from "@/components/NoData";
-import IndividualProfile from "@/components/individualProfile";
+import IndividualProfile from "@/components/IndividualProfile";
 import { setIndividualOpen } from "@/store/slice/buyerSlice";
 import RegisterBuyer from "@/components/RegisterBuyer";
+import Pagination from "@/components/pagination";
 
 export function Buyer() {
   const { pathname } = useLocation();
@@ -162,7 +163,11 @@ export function Buyer() {
                   </tbody>
                 </table>
               </CardBody>
+
             </Card>
+            <div className="flex items-start">
+              <Pagination />
+            </div>
           </>
 
           :

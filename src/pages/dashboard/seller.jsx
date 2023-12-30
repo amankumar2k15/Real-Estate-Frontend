@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSellerService } from "@/services/api.service";
 import { setTableData } from "@/store/slice/dashboardSlice";
 import NoData from "@/components/NoData";
-import IndividualProfile from "@/components/individualProfile";
+import IndividualProfile from "@/components/IndividualProfile";
 import { setIndividualOpen } from "@/store/slice/sellerSlice";
 import RegisterSeller from "@/components/RegisterSeller";
 
@@ -169,6 +169,10 @@ export function Seller() {
                 </table>
               </CardBody>
             </Card>
+
+            <div className="flex items-center justify-center">
+              <Pagination />
+            </div>
           </>
 
           :
