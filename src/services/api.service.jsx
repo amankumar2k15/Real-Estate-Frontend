@@ -2,7 +2,6 @@ import { getToken } from "@/helper/tokenHelper";
 import axios from "axios";
 
 const { VITE_BACKEND_PORT_DEVELOPMENT } = import.meta.env;
-console.log(VITE_BACKEND_PORT_DEVELOPMENT)
 
 axios.interceptors.request.use((config) => {
     const token = getToken();
@@ -21,7 +20,7 @@ const config = {
 }
 
 export const LoginService = async (data) => {
-    return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}user/login-user`, data);
+    return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}auth/login-user`, data);
 };
 export const RegisterGoogleService = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}register`);
@@ -32,5 +31,11 @@ export const RegisterSellerService = async (data) => {
 export const fetchSellerService = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}seller/list-seller`);
 };
+
+export const fetchUserWhoAmI = async (config) => {
+    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}user/who-am-i`, config);
+};
+
+
 
 

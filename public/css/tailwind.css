@@ -7,6 +7,10 @@
     height: 12px;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 
 
 .registerForm::-webkit-scrollbar-thumb {

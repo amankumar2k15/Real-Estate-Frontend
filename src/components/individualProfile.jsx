@@ -79,7 +79,7 @@ export function IndividualProfile({ data }) {
                             color="transparent"
                             shadow={false}
                             floated={false}
-                            className="mx-0 mt-0 flex items-center justify-between gap-4"
+                            className="mx-0 mt-0 flex items-center justify-between gap-1"
                         >
                             <Typography variant="h6" color="blue-gray">
                                 Profile Information
@@ -87,12 +87,12 @@ export function IndividualProfile({ data }) {
                         </CardHeader>
 
                         <CardBody className="p-0">
-                            <Typography
+                            {/* <Typography
                                 variant="small"
                                 className="font-normal text-blue-gray-500"
                             >
                                 Hi, I'm {data.fullName}, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality
-                            </Typography>
+                            </Typography> */}
 
                             <ul className="grid grid-cols-1 sm:grid-cols-2 mt-12 gap-4 p-0 ">
 

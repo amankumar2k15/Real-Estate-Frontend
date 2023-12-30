@@ -21,8 +21,10 @@ const userSlice = createSlice({
     },
     reducers: {
         setUserDetail: (state, action) => {
-            console.log("reaching inside store");
             state.data = action.payload;
+        },
+        setUserRole: (state, action) => {
+            state.role = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -42,5 +44,5 @@ const userSlice = createSlice({
 
 
 
-export const { setUserDetail } = userSlice.actions
+export const { setUserDetail , setUserRole } = userSlice.actions
 export default userSlice.reducer;

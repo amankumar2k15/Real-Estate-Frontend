@@ -22,7 +22,6 @@ export function Seller() {
   const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
 
   const [isFormVisible, setIsFormVisible] = useState(false);
-  // console.log(tabeData, "tabeData==================================");
 
   useEffect(() => {
     dispatch(setHeaderDetails(pathname))
@@ -48,7 +47,6 @@ export function Seller() {
 
   useEffect(() => {
     fetchSeller()
-    console.log("aman")
   }, [])
 
   return (
@@ -90,7 +88,7 @@ export function Seller() {
                   </thead>
                   <tbody>
 
-                    {tabeData.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase()))
+                    {tabeData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase()))
                       .map((seller, key) => {
                         const className = `py-3 px-5 ${key === authorsTableData.length - 1
                           ? ""
@@ -166,7 +164,7 @@ export function Seller() {
                       }
                       )}
 
-                    {tabeData.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
+                    {tabeData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
                   </tbody>
                 </table>
               </CardBody>

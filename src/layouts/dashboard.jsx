@@ -5,18 +5,52 @@ import { Sidenav, DashboardNavbar, Configurator, Footer, } from "@/widgets/layou
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 import { setSearch } from "@/store/slice/headerSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { setData, setToken } from "@/helper/tokenHelper";
+import { setUserDetail, setUserRole } from "@/store/slice/userSlice";
+import axios from "axios";
+import { fetchUserWhoAmI } from "@/services/api.service";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const dispatchh = useDispatch()
   const { pathname } = useLocation()
-  const {role} = useSelector((state)=>state.user.data)
   const { sidenavType } = controller;
-  
+
+  const getUser = async () => {
+    try {
+      console.log("inside get User ================>");
+      const url = `http://localhost:4400/api/v1/auth/login/success`;
+      const { data } = await axios.get(url, { withCredentials: true });
+      setToken(data?.token)
+      const config = {
+        headers: { "Authorization": `Bearer ${data?.token}`, },
+      }
+      fetchUserWhoAmI(config).then((res) => {
+        console.log(res , "shashank sharma is here");
+       dispatchh(setUserRole(res?.data?.results?.role)) 
+
+      }).catch((err) => {
+        console.log(err);
+      })
+
+      setData(data?.user)
+      dispatchh(setUserDetail(data?.user))
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+
+    // alert("hey")
+  }, [])
+
   useEffect(() => {
     dispatchh(setSearch(""))
+    console.log("called=================");
   }, [pathname]);
 
   return (

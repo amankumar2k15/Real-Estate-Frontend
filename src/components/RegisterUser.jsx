@@ -35,7 +35,6 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
 
         try {
             let res = await RegisterSellerService(formData)
-            console.log(res)
             if (res) {
                 // navigate("/dashboard/home")
                 fetchSeller()

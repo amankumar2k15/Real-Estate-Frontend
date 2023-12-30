@@ -5,29 +5,15 @@ import { StatisticsCard } from "@/widgets/cards";
 import { StatisticsChart } from "@/widgets/charts";
 import { statisticsCardsData, statisticsChartsData, projectsTableData, ordersOverviewData, } from "@/data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
-import axios from "axios";
-import { setData, setToken } from "@/helper/tokenHelper";
 import { useDispatch } from "react-redux";
-import { setUserDetail } from "@/store/slice/userSlice";
 import { setSearch } from "@/store/slice/headerSlice";
 
 export function Home() {
   const dispatch = useDispatch()
 
-  const getUser = async () => {
-    try {
-      const url = `http://localhost:4400/api/v1/auth/login/success`;
-      const { data } = await axios.get(url, { withCredentials: true });
-      setToken(data?.token)
-      setData(data?.user)
-      dispatch(setUserDetail(data?.user))
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
 
   useEffect(() => {
-    getUser();
     dispatch(setSearch(" "))
   }, []);
 

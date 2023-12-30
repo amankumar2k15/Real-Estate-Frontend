@@ -1,18 +1,25 @@
 import { LoginService } from "@/services/api.service";
 import { Card, Input, Checkbox, Button, Typography, } from "@material-tailwind/react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 
 export function SignIn() {
+  const [formData, setFormData] = useState({ email: null })
   const navigate = useNavigate()
+  const googleAuth = () => {
+    window.open(
+      `http://localhost:4400/api/v1/auth/google/callback`,
+      "_self"
+    );
+  };
 
-	const googleAuth = () => {
-		window.open(
-			`http://localhost:4400/api/v1/auth/google/callback`,
-			"_self"
-		);
-	};
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    LoginService()
+    
+  }
 
   return (
     <section className="m-8 flex gap-4">
@@ -29,6 +36,7 @@ export function SignIn() {
             <Input
               size="lg"
               placeholder="name@mail.com"
+              onClick={(e) => setFormData(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -36,7 +44,7 @@ export function SignIn() {
             />
           </div>
 
-          <Button className="mt-6" fullWidth>
+          <Button className="mt-6" fullWidth onClick={handleSubmit}>
             Sign In
           </Button>
 

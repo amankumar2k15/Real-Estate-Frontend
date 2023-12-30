@@ -14,8 +14,7 @@ export function DashboardNavbar() {
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
-  console.log("profile", profile);
-  
+
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}
@@ -75,10 +74,10 @@ export function DashboardNavbar() {
             <Button
               variant="text"
               color="blue-gray"
-              className="hidden items-center gap-1 font-12 px-4 xl:flex normal-case"
+              className="hidden capitalize items-center gap-1 font-12 px-4 xl:flex normal-case"
             >
               {
-                profile ?
+                true ?
                   <img
                     className="h-8 w-8 rounded-full object-cover object-center"
                     src={profile}
@@ -87,15 +86,10 @@ export function DashboardNavbar() {
                   <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
 
               }
-
-
-              {username ? username.split(' ')[0] + " " + username.split(' ')[1] : "user"}
+              <label className="capitalize">
+                {username ? username.split(' ')[0] + " " + username.split(' ')[1] : "user"}
+              </label>
             </Button>
-            {/* <img
-                className="h-8 w-8 rounded-full object-cover object-center"
-                src={profile}
-                alt="nature image"
-              /> */}
             <IconButton
               variant="text"
               color="blue-gray"

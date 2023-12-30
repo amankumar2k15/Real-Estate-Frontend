@@ -18,7 +18,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
   const navigate = useNavigate()
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
-  const { role } = useSelector((state) => state.user.data)
+  const { role } = useSelector((state) => state.user)
 
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
@@ -65,7 +65,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
         </IconButton>
       </div>
       <div className="m-4">
-        {routes.map(({ layout, title, pages }, key) => (
+        {routes?.filter((item)=>item.role === role).map(({ layout, title, pages }, key) => (
           <ul key={key} className="mb-4 flex flex-col gap-1">
             {title && (
               <li className="mx-3.5 mt-4 mb-2">
@@ -78,7 +78,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
                 </Typography>
               </li>
             )}
-            {pages.filter((item) => item.role !== "user").map(({ icon, name, path }) => (
+            {pages.filter((item)=>item.role === role).map(({ icon, name, path }) => (
               <li key={name}>
                 <NavLink to={`/${layout}${path}`}>
                   {({ isActive }) => (

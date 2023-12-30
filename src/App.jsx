@@ -12,6 +12,9 @@ function App() {
   // useEffect(() => {
   //   if (!token) return navigate("/auth/sign-up")
   // }, [])
+  // useEffect(()=>{
+  // alert("hey")
+  // },[])
   return (
     <Routes>
       <Route path="/dashboard/*" element={<Dashboard />} />
