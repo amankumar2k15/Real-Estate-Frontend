@@ -3,7 +3,6 @@ import { EllipsisVerticalIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { authorsTableData, projectsTableData } from "@/data";
 import React, { useEffect, useState } from "react";
 import Modal from "../../components/Modal";
-import RegisterUser from "@/components/RegisterUser";
 import { setHeaderDetails } from "@/store/slice/headerSlice";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,11 +11,12 @@ import { setTableData } from "@/store/slice/dashboardSlice";
 import NoData from "@/components/NoData";
 import IndividualProfile from "@/components/individualProfile";
 import { setIndividualOpen } from "@/store/slice/sellerSlice";
+import RegisterSeller from "@/components/RegisterSeller";
 
 export function Seller() {
   const { pathname } = useLocation();
   const dispatch = useDispatch()
-  const { tabeData } = useSelector((state) => state.dashboard);
+  const { tableData } = useSelector((state) => state.dashboard);
   const { isIndividualOpen } = useSelector((state) => state.seller);
   const { search } = useSelector((state) => state.header)
   const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
@@ -88,7 +88,7 @@ export function Seller() {
                   </thead>
                   <tbody>
 
-                    {tabeData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase()))
+                    {tableData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase()))
                       .map((seller, key) => {
                         const className = `py-3 px-5 ${key === authorsTableData.length - 1
                           ? ""
@@ -164,7 +164,7 @@ export function Seller() {
                       }
                       )}
 
-                    {tabeData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
+                    {tableData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
                   </tbody>
                 </table>
               </CardBody>
@@ -185,7 +185,7 @@ export function Seller() {
         <>
           <div className="p-4 xl:ml-80">
             <Modal title="Add Seller" closeForm={closeForm} isFormVisible={isFormVisible} >
-              <RegisterUser fetchSeller={fetchSeller} closeForm={closeForm} />
+              <RegisterSeller fetchSeller={fetchSeller} closeForm={closeForm} />
             </Modal>
           </div>
         </>

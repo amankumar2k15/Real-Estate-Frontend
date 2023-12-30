@@ -1,25 +1,30 @@
 import React, { useState } from 'react'
-import { setFormValue } from '@/store/slice/sellerSlice';
+import { setFormValue } from '@/store/slice/buyerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { RegisterSellerService } from '@/services/api.service';
-import { useNavigate } from 'react-router-dom';
+import { RegisterBuyerService } from '@/services/api.service';
 import { SyncLoader } from "react-spinners";
 
-const RegisterUser = ({ fetchSeller, closeForm }) => {
+const RegisterBuyer = ({ fetchBuyer, closeForm }) => {
     const [isLoading, setLoading] = useState(false)
-    const navigate = useNavigate()
     const dispatch = useDispatch();
-    const { data } = useSelector((state) => state.seller)
+    const { data } = useSelector((state) => state.buyer)
 
     const handleInput = (key, value) => {
         dispatch(setFormValue({ type: "fill", data: { key, value } }));
-
     };
 
     const handleFileInput = (selectedKey, selectedFile) => {
         dispatch(setFormValue({ type: "fill", data: { key: selectedKey, value: selectedFile } }))
     }
+
+    //clearFileInput
+    const clearFileInput = (selectedKey) => {
+        const fileInput = document.getElementById(selectedKey);
+        if (fileInput) {
+            fileInput.value = null;
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -29,35 +34,38 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
         Object.keys(data).forEach((key) => {
             formData.append(key, data[key]);
         });
-
-        ;
         //FormData---------------------------------------->
 
         try {
-            let res = await RegisterSellerService(formData)
+            let res = await RegisterBuyerService(formData)
             if (res) {
-                // navigate("/dashboard/home")
-                fetchSeller()
+                fetchBuyer()
                 closeForm()
                 dispatch(setFormValue({
                     type: "empty", data: {
                         fullName: null,
                         email: null,
                         phone: null,
-                        address: null,
-                        companyName: null,
-                        location: null,
-                        state: null,
                         city: null,
+                        state: null,
                         pincode: null,
+                        address: null,
+                        location: null,
                         adhaar: null,
-                        companyPan: null,
+                        pan: null,
                         blankCheque: null,
-                        certificate_of_incorporate: null,
+                        source_of_fund: null,
+                        siteId: null
                     }
                 }))
 
-                toast.success("Seller Added")
+                // Clear file inputs
+                clearFileInput('adhaar');
+                clearFileInput('blankCheque');
+                clearFileInput('pan');
+                clearFileInput('source_of_fund');
+
+                toast.success("Buyer Added")
             }
         } catch (err) {
             toast.success(err.response.data.message)
@@ -154,17 +162,18 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
                     <div className="mb-4 md:mr-2 md:mb-0">
                         <label
                             className="block mb-2 text-sm font-medium text-gray-900 "
-                            htmlFor="companyName"
+                            htmlFor="sideId"
                         >
-                            Company Name
+                            Site ID
                         </label>
                         <input
                             className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                            id="companyName"
+                            id="sideId"
                             type="text"
-                            placeholder="Company Name"
-                            value={data?.companyName || ""}
-                            onChange={(e) => handleInput("companyName", e.target.value)}
+                            disabled
+                            placeholder="Site Id"
+                            value={data?.siteId || ""}
+                            onChange={(e) => handleInput("sideId", e.target.value)}
                         />
                     </div>
                 </div>
@@ -251,7 +260,7 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
                     >
                         Adhaar Card
                     </label>
-                    <input className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    <input className="block  w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="adhaar"
                         type="file"
                         onChange={(e) => handleFileInput("adhaar", e.target.files[0])}
@@ -276,13 +285,13 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
                 <div className="mb-4 md:flex flex-col">
                     {/* //Pan card  */}
                     <label className="block mb-2 text-sm font-medium text-gray-900 "
-                        htmlFor="companyPan">
-                        Company Pan
+                        htmlFor="pan">
+                        Pan
                     </label>
                     <input className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                        id="companyPan"
+                        id="pan"
                         type="file"
-                        onChange={(e) => handleFileInput("companyPan", e.target.files[0])}
+                        onChange={(e) => handleFileInput("pan", e.target.files[0])}
                     />
                 </div>
 
@@ -290,14 +299,14 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
                     {/* //COI */}
                     <label
                         className="block mb-2 text-sm font-medium text-gray-900 "
-                        htmlFor="certificate_of_incorporate"
+                        htmlFor="source_of_fund"
                     >
-                        Certificate of Incorporate
+                        Source of fund
                     </label>
                     <input className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 "
-                        id="certificate_of_incorporate"
+                        id="source_of_fund"
                         type="file"
-                        onChange={(e) => handleFileInput("certificate_of_incorporate", e.target.files[0])}
+                        onChange={(e) => handleFileInput("source_of_fund", e.target.files[0])}
                     />
                 </div>
 
@@ -306,13 +315,13 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
                 {/* //button  */}
                 <div className="mb-6  flex justify-between">
                     <button
-                        className="w-1/3 px-4 py-2 font-bold text-white bg-red-600 rounded-full hover:bg-red-800"
+                        className="w-1/4 px-2 py-2 font-bold text-sm text-white bg-red-600 rounded-lg hover:bg-red-800"
                         type="button"
                     >
                         Cancel
                     </button>
                     <button
-                        className="w-1/3 px-4 py-2 font-bold text-white bg-black rounded-full hover:bg-gray-900"
+                        className="w-1/4 px-2 py-2 font-bold text-sm text-white bg-black rounded-lg hover:bg-gray-900"
                         type="button"
                         onClick={handleSubmit}
                     >
@@ -324,7 +333,7 @@ const RegisterUser = ({ fetchSeller, closeForm }) => {
     )
 }
 
-export default RegisterUser
+export default RegisterBuyer
 
 
 

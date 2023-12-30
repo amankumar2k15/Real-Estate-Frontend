@@ -1,9 +1,8 @@
-import { Card, CardBody, CardHeader, Avatar, Typography, Tooltip, } from "@material-tailwind/react";
-import { PencilIcon, } from "@heroicons/react/24/solid";
+import { Card, CardBody, CardHeader, Avatar, Typography, } from "@material-tailwind/react";
 import { useState } from "react";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
-import { setIndividualOpen } from "@/store/slice/sellerSlice";
+import { setIndividualOpen } from "@/store/slice/buyerSlice";
 
 export function IndividualProfile({ data }) {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -28,15 +27,15 @@ export function IndividualProfile({ data }) {
         { key: "pin code", value: data.pincode },
         { key: "phone", value: data.phone },
         { key: "location", value: data.location },
-        { key: "Company Name", value: data.companyName },
+        { key: "site id", value: data.siteId },
         { key: "address", value: data.address },
     ]
 
     const imgData = [
         { title: "adhaar", img: data.adhaar },
         { title: "blank Cheque", img: data.blankCheque },
-        { title: "company Pan", img: data.companyPan },
-        { title: "COI", img: data.certificate_of_incorporate },
+        { title: "Pan", img: data.pan },
+        { title: "SOF", img: data.source_of_fund },
     ]
 
     return (

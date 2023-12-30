@@ -28,8 +28,14 @@ export const RegisterGoogleService = async () => {
 export const RegisterSellerService = async (data) => {
     return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}seller/create-seller`, data, config);
 };
+export const RegisterBuyerService = async (data) => {
+    return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}buyer/create-buyer`, data, config);
+};
 export const fetchSellerService = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}seller/list-seller`);
+};
+export const fetchBuyerService = async () => {
+    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}buyer/list-buyer`);
 };
 
 export const fetchUserWhoAmI = async (config) => {

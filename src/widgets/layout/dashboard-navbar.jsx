@@ -31,15 +31,15 @@ export function DashboardNavbar() {
             className={`bg-transparent p-0 transition-all ${fixedNavbar ? "mt-1" : ""
               }`}
           >
-            <Link to={`/${layout}`}>
+            <div>
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100"
+                className="font-normal opacity-50 cursor-default"
               >
                 {layout}
               </Typography>
-            </Link>
+            </div>
             <Typography
               variant="small"
               color="blue-gray"
@@ -74,12 +74,12 @@ export function DashboardNavbar() {
             <Button
               variant="text"
               color="blue-gray"
-              className="hidden capitalize items-center gap-1 font-12 px-4 xl:flex normal-case"
+              className="hidden capitalize items-center gap-1 font-12 px-4 xl:flex"
             >
               {
                 true ?
                   <img
-                    className="h-8 w-8 rounded-full object-cover object-center"
+                    className="h-8 max-w-8 rounded-full object-cover object-center"
                     src={profile}
                     alt="natureimage"
                   /> :
@@ -98,7 +98,7 @@ export function DashboardNavbar() {
               {
                 profile ?
                   <img
-                    className="h-8 w-8 rounded-full object-cover object-center"
+                    className="h-8 max-w-[32px] rounded-full object-cover object-center"
                     src={profile}
                     alt="nature image"
                   /> :
