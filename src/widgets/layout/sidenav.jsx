@@ -1,24 +1,22 @@
 import PropTypes from "prop-types";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  Avatar,
-  Button,
-  IconButton,
-  Typography,
-} from "@material-tailwind/react";
+import { Avatar, Button, IconButton, Typography, } from "@material-tailwind/react";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { clearStorage, getData, removeToken } from "@/helper/tokenHelper";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { setIndividualOpen } from "@/store/slice/sellerSlice";
+import { setIndividualOpen as setBuyerIndividual } from "@/store/slice/buyerSlice";
+import { setIndividualOpen as setSellerIndividual } from "@/store/slice/sellerSlice";
 
 export function Sidenav({ brandImg, brandName, routes }) {
+  const { pathname } = useLocation()
   const dispatchh = useDispatch()
   const navigate = useNavigate()
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
   const { role } = useSelector((state) => state.user)
+  console.log(role)
 
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
@@ -26,6 +24,13 @@ export function Sidenav({ brandImg, brandName, routes }) {
     transparent: "bg-transparent",
   };
 
+
+  const handleIndividualOpen = () => {
+    pathname === "/dashboard/buyer" ? dispatchh(setBuyerIndividual(false))
+      :
+      pathname === "/dashboard/seller" && dispatchh(setSellerIndividual(false))
+
+  };
 
   const handleLogOut = () => {
     navigate("/sign-in")
@@ -82,7 +87,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
               <li key={name}>
                 <NavLink to={`/${layout}${path}`}>
                   {({ isActive }) => (
-                    <Button onClick={() => dispatchh(setIndividualOpen(false))}
+                    <Button onClick={handleIndividualOpen}
                       variant={isActive ? "gradient" : "text"}
                       color={
                         isActive

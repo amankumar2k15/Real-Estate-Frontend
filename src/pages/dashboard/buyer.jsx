@@ -5,13 +5,14 @@ import Modal from "../../components/Modal";
 import { setHeaderDetails } from "@/store/slice/headerSlice";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBuyerService } from "@/services/api.service";
+import { DeleteIndividualBuyer, fetchBuyerService } from "@/services/api.service";
 import { setTableData } from "@/store/slice/dashboardSlice";
 import NoData from "@/components/NoData";
 import IndividualProfile from "@/components/IndividualProfile";
 import { setIndividualOpen } from "@/store/slice/buyerSlice";
 import RegisterBuyer from "@/components/RegisterBuyer";
 import Pagination from "@/components/pagination";
+import { toast } from "react-toastify";
 
 export function Buyer() {
   const { pathname } = useLocation();
@@ -34,10 +35,17 @@ export function Buyer() {
     setIsFormVisible(false);
   };
 
+  const handleDeleteBuyer = (id) => {
+    DeleteIndividualBuyer(id).then((res) => {
+      // console.log(res)
+      toast.success(res.data.message)
+      fetchBuyer()
+    }).catch((err) => console.log(err))
+  }
 
   const fetchBuyer = () => {
     fetchBuyerService().then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch(setTableData(res?.data.result))
     }).catch((err) => {
       console.log(err);
@@ -150,6 +158,7 @@ export function Buyer() {
                                 as="a"
                                 href="#"
                                 className="text-xs hover:text-red-200 px-2 font-semibold text-red-600"
+                                onClick={() => handleDeleteBuyer(buyer._id)}
                               >
                                 Delete
                               </Typography>

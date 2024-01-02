@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useMaterialTailwindController, } from "@/context";
 
 
-const Modal = ({ title,closeForm, isFormVisible, children }) => {
+const Modal = ({ title, closeForm, isFormVisible, children }) => {
     const [controller, dispatch] = useMaterialTailwindController();
     const { openConfigurator, sidenavColor, sidenavType, fixedNavbar } =
         controller;
@@ -30,7 +30,7 @@ const Modal = ({ title,closeForm, isFormVisible, children }) => {
 
                         </Typography>
                         <Typography className="font-normal text-blue-gray-600">
-                           {/* {} */}
+                            {/* {} */}
                         </Typography>
                     </div>
                     <IconButton

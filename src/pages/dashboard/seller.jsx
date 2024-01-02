@@ -6,13 +6,14 @@ import Modal from "../../components/Modal";
 import { setHeaderDetails } from "@/store/slice/headerSlice";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSellerService } from "@/services/api.service";
+import { DeleteIndividualSeller, fetchSellerService } from "@/services/api.service";
 import { setTableData } from "@/store/slice/dashboardSlice";
 import NoData from "@/components/NoData";
 import IndividualProfile from "@/components/IndividualProfile";
 import { setIndividualOpen } from "@/store/slice/sellerSlice";
 import RegisterSeller from "@/components/RegisterSeller";
 import Pagination from "@/components/Pagination";
+import { toast } from "react-toastify";
 
 export function Seller() {
   const { pathname } = useLocation();
@@ -41,6 +42,13 @@ export function Seller() {
     }).catch((err) => {
       console.log(err);
     })
+  }
+
+  const handleDeleteSeller = (id) => {
+    DeleteIndividualSeller(id).then((res) => {
+      toast.success(res.data.message)
+      fetchSeller()
+    }).catch((err) => console.log(err))
   }
 
   useEffect(() => {
@@ -153,6 +161,7 @@ export function Seller() {
                                 as="a"
                                 href="#"
                                 className="text-xs hover:text-red-200 px-2 font-semibold text-red-600"
+                                onClick={() => handleDeleteSeller(seller._id)}
                               >
                                 Delete
                               </Typography>

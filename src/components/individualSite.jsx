@@ -6,7 +6,7 @@ import { setIndividualOpen as setBuyerIndividual } from "@/store/slice/buyerSlic
 import { setIndividualOpen as setSellerIndividual } from "@/store/slice/sellerSlice";
 import { useLocation } from "react-router-dom";
 
-function IndividualProfile({ data }) {
+function IndividualSite({ data }) {
     const { pathname } = useLocation()
     console.log(pathname)
     console.log("data inside individual component ", data)
@@ -200,4 +200,4 @@ function IndividualProfile({ data }) {
     );
 }
 
-export default IndividualProfile;
+export default IndividualSite;
