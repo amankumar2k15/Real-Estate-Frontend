@@ -168,7 +168,7 @@ export function Seller() {
               </CardBody>
             </Card>
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-start">
               <Pagination />
             </div>
           </>
