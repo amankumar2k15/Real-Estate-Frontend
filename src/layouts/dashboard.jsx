@@ -6,11 +6,12 @@ import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 import { setSearch } from "@/store/slice/headerSlice";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { setData, setToken } from "@/helper/tokenHelper";
 import { setUserDetail, setUserRole } from "@/store/slice/userSlice";
 import axios from "axios";
 import { fetchUserWhoAmI } from "@/services/api.service";
+import { SyncLoader } from "react-spinners";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -74,7 +75,19 @@ export function Dashboard() {
           <Cog6ToothIcon className="h-5 w-5" />
         </IconButton>
 
-        <Routes>
+        <Suspense
+      fallback={
+        <>
+          <div
+            className="flex items-center justify-center w-full"
+            style={{ height: "80vh" }}
+          >
+            <SyncLoader size={14} color="#3b3b3b" />
+          </div>
+        </>
+      }
+    >
+       <Routes>
           {routes.map(
             ({ layout, pages }) =>
               layout === "dashboard" &&
@@ -83,6 +96,9 @@ export function Dashboard() {
               ))
           )}
         </Routes>
+      
+    </Suspense>
+       
 
         <div className="text-blue-gray-600">
           <Footer />

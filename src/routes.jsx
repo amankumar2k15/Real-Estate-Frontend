@@ -1,7 +1,13 @@
 import { HomeIcon, UserCircleIcon, TableCellsIcon, InformationCircleIcon, ServerStackIcon, RectangleStackIcon } from "@heroicons/react/24/solid";
-import { Home, Profile, Trustee, Notifications, Seller, Buyer } from "@/pages/dashboard";
-import { SignIn, SignUp } from "@/pages/auth";
-// import { useSelector } from "react-redux";
+import { lazy } from "react";
+// import { Home, Profile, Trustee, Notifications, Seller, Buyer } from "@/pages/dashboard";
+const Home  = lazy(() => import("@/pages/dashboard/home"));
+const  Profile  = lazy(() => import("@/pages/dashboard/profile"));
+const  Trustee   = lazy(() => import("@/pages/dashboard/trustee"));
+const Notifications = lazy(() => import("@/pages/dashboard/notifications"));
+const Buyer = lazy(() => import("@/pages/dashboard/buyer"));
+const Seller = lazy(() => import("@/pages/dashboard/seller"));
+
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -25,7 +31,6 @@ export const routes = [
   {
     layout: "dashboard",
     role : "buyer",
-    
     pages: [
       { icon: <HomeIcon {...icon} />, name: "dashboard", path: "/home", element: <Home />, role : "buyer" },
       // { icon: <TableCellsIcon {...icon} />, name: "trustee", path: "/trustee", element: <Trustee />,role : "seller" },
@@ -36,7 +41,6 @@ export const routes = [
   {
     layout: "dashboard",
     role : "super-admin",
-    
     pages: [
       { icon: <HomeIcon {...icon} />, name: "dashboard", path: "/home", element: <Home />, role : "super-admin" },
       { icon: <UserCircleIcon {...icon} />, name: "buyer", path: "/buyer", element: <Buyer />,role : "super-admin"  },

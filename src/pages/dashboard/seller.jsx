@@ -12,6 +12,7 @@ import NoData from "@/components/NoData";
 import IndividualProfile from "@/components/IndividualProfile";
 import { setIndividualOpen } from "@/store/slice/sellerSlice";
 import RegisterSeller from "@/components/RegisterSeller";
+import Pagination from "@/components/Pagination";
 
 export function Seller() {
   const { pathname } = useLocation();
@@ -20,9 +21,7 @@ export function Seller() {
   const { isIndividualOpen } = useSelector((state) => state.seller);
   const { search } = useSelector((state) => state.header)
   const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
-
   const [isFormVisible, setIsFormVisible] = useState(false);
-
   useEffect(() => {
     dispatch(setHeaderDetails(pathname))
   }, [])
@@ -38,7 +37,6 @@ export function Seller() {
 
   const fetchSeller = () => {
     fetchSellerService().then((res) => {
-      // console.log(res);
       dispatch(setTableData(res?.data.result))
     }).catch((err) => {
       console.log(err);
@@ -56,7 +54,7 @@ export function Seller() {
           <>
             <div className="flex w-full justify-end pb-0">
               <Button
-                variant={true ? "text" : "text"}
+                variant="text"
                 onClick={showForm}
                 color="blue-grey"
                 className="text-blueGray-500 outline  border border-black border-blueGray-500 hover:text-white   text-black  font-bold uppercase text-xs px-4 py-2 rounded  focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-black "
@@ -96,48 +94,48 @@ export function Seller() {
                           }`;
 
                         return (
-                          <tr key={seller.fullName}>
+                          <tr key={seller?.fullName}>
                             <td className={className}
                               onClick={(e) => { dispatch(setIndividualOpen(true)), setIndividualData({ isOpen: true, data: seller }) }}>
                               <Typography className="text-xs capitalize font-semibold cursor-pointer hover:text-blue-gray-800 hover:underline text-blue-gray-600">
-                                {seller.fullName}
+                                {seller?.fullName}
                               </Typography>
                             </td>
 
 
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller.email}
+                                {seller?.email}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller.phone}
+                                {seller?.phone}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller.companyName}
+                                {seller?.companyName}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller.location}
+                                {seller?.location}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller.state}
+                                {seller?.state}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller.city}
+                                {seller?.city}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller.isApproved ? "Yes" : "No"}
+                                {seller?.isApproved ? "Yes" : "No"}
                               </Typography>
                             </td>
                             <td className={`py-3 px-5 ${key === authorsTableData.length - 1

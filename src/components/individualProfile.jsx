@@ -4,7 +4,8 @@ import Modal from "react-modal";
 import { useDispatch } from "react-redux";
 import { setIndividualOpen } from "@/store/slice/buyerSlice";
 
-export function IndividualProfile({ data }) {
+ function IndividualProfile({ data }) {
+    console.log("data inside individual component " , data)
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const dispatch = useDispatch()
@@ -20,22 +21,22 @@ export function IndividualProfile({ data }) {
     };
 
     const listingData = [
-        { key: "fullName", value: data.fullName },
-        { key: "email", value: data.email },
-        { key: "state", value: data.state },
-        { key: "city", value: data.city },
-        { key: "pin code", value: data.pincode },
-        { key: "phone", value: data.phone },
-        { key: "location", value: data.location },
-        { key: "site id", value: data.siteId },
-        { key: "address", value: data.address },
+        { key: "fullName", value: data?.fullName },
+        { key: "email", value: data?.email },
+        { key: "state", value: data?.state },
+        { key: "city", value: data?.city },
+        { key: "pin code", value: data?.pincode },
+        { key: "phone", value: data?.phone },
+        { key: "location", value: data?.location },
+        { key: "site id", value: data?.siteId },
+        { key: "address", value: data?.address },
     ]
 
     const imgData = [
-        { title: "adhaar", img: data.adhaar },
-        { title: "blank Cheque", img: data.blankCheque },
-        { title: "Pan", img: data.pan },
-        { title: "SOF", img: data.source_of_fund },
+        { title: "adhaar", img: data?.adhaar },
+        { title: "blank Cheque", img: data?.blankCheque },
+        { title: "Pan", img: data?.pan },
+        { title: "SOF", img: data?.source_of_fund },
     ]
 
     return (
@@ -58,13 +59,13 @@ export function IndividualProfile({ data }) {
                             />
                             <div>
                                 <Typography variant="h5" color="blue-gray" className="mb-1 capitalize">
-                                    {data.fullName}
+                                    {data?.fullName}
                                 </Typography>
                                 <Typography
                                     variant="small"
                                     className="font-normal text-blue-gray-600 capitalize"
                                 >
-                                    {data.role}
+                                    {data?.role}
                                 </Typography>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Alert, Card, CardHeader, CardBody, } from "@material-tailwind/react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import NoData from "@/components/NoData";
 
 export function Notifications() {
   const [showAlerts, setShowAlerts] = useState({
@@ -31,17 +32,7 @@ export function Notifications() {
           </Typography>
         </CardHeader>
         <CardBody className="flex flex-col gap-4 p-4">
-          {alerts.map((color) => (
-            <Alert
-              key={color}
-              open={showAlerts[color]}
-              color={color}
-              onClose={() => setShowAlerts((current) => ({ ...current, [color]: false }))}
-            >
-              A simple {color} alert with an <a href="#">example link</a>. Give
-              it a click if you like.
-            </Alert>
-          ))}
+         <NoData/>
         </CardBody>
       </Card>
      

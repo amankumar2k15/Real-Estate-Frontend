@@ -100,39 +100,39 @@ export function Buyer() {
                             <td className={className}
                               onClick={(e) => { dispatch(setIndividualOpen(true)), setIndividualData({ isOpen: true, data: buyer }) }}>
                               <Typography className="text-xs capitalize font-semibold cursor-pointer hover:text-blue-gray-800 hover:underline text-blue-gray-600">
-                                {buyer.fullName}
+                                {buyer?.fullName}
                               </Typography>
                             </td>
 
 
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {buyer.email}
+                                {buyer?.email}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {buyer.phone}
+                                {buyer?.phone}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {buyer.location}
+                                {buyer?.location}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {buyer.state}
+                                {buyer?.state}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {buyer.city}
+                                {buyer?.city}
                               </Typography>
                             </td>
                             <td className={className}>
                               <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {buyer.isApproved ? "Yes" : "No"}
+                                {buyer?.isApproved ? "Yes" : "No"}
                               </Typography>
                             </td>
                             <td className={`py-3 px-5 ${key === authorsTableData.length - 1

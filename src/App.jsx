@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Dashboard, Auth } from "@/layouts";
-import { useEffect } from "react";
 import { getToken } from "./helper/tokenHelper";
+import { SyncLoader } from "react-spinners";
 
 
 function App() {
@@ -16,12 +17,13 @@ function App() {
   // alert("hey")
   // },[])
   return (
+
     <Routes>
-      <Route path="/dashboard/*" element={<Dashboard />} />
-      <Route path="/auth/*" element={<Auth />} />
-      <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
-    </Routes>
-  );
+    <Route path="/dashboard/*" element={<Dashboard />} />
+    <Route path="/auth/*" element={<Auth />} />
+    <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
+  </Routes>
+  )
 }
 
 export default App;
