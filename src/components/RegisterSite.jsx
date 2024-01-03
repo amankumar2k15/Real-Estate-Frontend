@@ -12,18 +12,18 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
         site_image: '',
         site_location: '',
         site_description: '',
-        buildings: [
-            {
-                block: '',
-                flats: [
-                    {
-                        flat_name: '',
-                        flat_image: null,
-                        flat_type: '',
-                    },
-                ],
-            },
-        ],
+        // buildings: [
+        //     {
+        //         block: '',
+        //         flats: [
+        //             {
+        //                 flat_name: '',
+        //                 flat_image: null,
+        //                 flat_type: '',
+        //             },
+        //         ],
+        //     },
+        // ],
     });
     const [isLoading, setLoading] = useState(false)
     // const dispatch = useDispatch();
@@ -32,27 +32,27 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
-    const handleFlatInputChange = (buildingIndex, flatIndex, e) => {
-        const updatedBuildings = [...formData.buildings];
-        updatedBuildings[buildingIndex].flats[flatIndex][e.target.name] = e.target.value;
-        setFormData({ ...formData, buildings: updatedBuildings });
-    };
+    // const handleFlatInputChange = (buildingIndex, flatIndex, e) => {
+    //     const updatedBuildings = [...formData.buildings];
+    //     updatedBuildings[buildingIndex].flats[flatIndex][e.target.name] = e.target.value;
+    //     setFormData({ ...formData, buildings: updatedBuildings });
+    // };
 
-    const handleBuildingInputChange = (e) => {
-        setFormData((prev) => {
-            if (prev.buildings) {
-                prev.buildings[0].block = e.target.value
-            }
-            console.log("aman prev", prev)
-            return prev
-        })
-    };
+    // const handleBuildingInputChange = (e) => {
+    //     setFormData((prev) => {
+    //         if (prev.buildings) {
+    //             prev.buildings[0].block = e.target.value
+    //         }
+    //         console.log("aman prev", prev)
+    //         return prev
+    //     })
+    // };
 
-    const handleImageChange = (buildingIndex, flatIndex, e) => {
-        const updatedBuildings = [...formData.buildings];
-        updatedBuildings[buildingIndex].flats[flatIndex].flat_image = e.target.files[0];
-        setFormData({ ...formData, buildings: updatedBuildings });
-    };
+    // const handleImageChange = (buildingIndex, flatIndex, e) => {
+    //     const updatedBuildings = [...formData.buildings];
+    //     updatedBuildings[buildingIndex].flats[flatIndex].flat_image = e.target.files[0];
+    //     setFormData({ ...formData, buildings: updatedBuildings });
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -64,7 +64,7 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
             formDataToSend.append('site_image', formData.site_image);
             formDataToSend.append('site_location', formData.site_location);
             formDataToSend.append('site_description', formData.site_description);
-            formDataToSend.append('buildings', JSON.stringify(formData.buildings));
+            // formDataToSend.append('buildings', JSON.stringify(formData.buildings));
 
             const response = await axios.post('http://localhost:4400/api/v1/site/create-site', formDataToSend, {
                 headers: {
@@ -229,73 +229,6 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
                 </div>
 
 
-
-                {formData.buildings.map((building, buildingIndex) => (
-                    <div key={buildingIndex}>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
-                            Building Block
-                        </label>
-                        <input
-                            className="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                            placeholder='Building Block'
-                            type="text"
-                            name="block"
-                            defaultValue={building.block}
-                            onChange={(e) => handleBuildingInputChange(e)}
-                        />
-
-                        {building.flats.map((flat, flatIndex) => (
-                            <div className='flex flex-col gap-4 mt-4' key={flatIndex}>
-                                <label className="block text-sm font-medium text-gray-900 ">
-                                    Flat Name
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    placeholder='Flat Name'
-                                    name="flat_name"
-                                    value={flat.flat_name}
-                                    onChange={(e) => handleFlatInputChange(buildingIndex, flatIndex, e)}
-                                />
-
-                                <label className="block text-sm font-medium text-gray-900 ">
-                                    Flat Image
-                                </label>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={(e) => handleImageChange(buildingIndex, flatIndex, e)}
-                                />
-
-                                <label className="block text-sm font-medium text-gray-900 ">
-                                    Flat Type
-                                </label>
-                                {/* <input
-
-                                    type="text"
-                                    name="flat_type"
-                                    value={flat.flat_type}
-                                    onChange={(e) => handleFlatInputChange(buildingIndex, flatIndex, e)}
-                                /> */}
-                                <select
-                                    className="w-full mb-4 px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    name="flat_type"
-                                    value={flat.flat_type}
-                                    onChange={(e) => handleFlatInputChange(buildingIndex, flatIndex, e)}
-                                >
-                                    <option value="1 BHK">1 BHK</option>
-                                    <option value="2 BHK">2 BHK</option>
-                                    <option value="3 BHK">3 BHK</option>
-                                    <option value="Pent House">Pent House</option>
-                                </select>
-
-                            </div>
-                        ))}
-                    </div>
-                ))}
-
-
-
                 {/* //button  */}
                 <div className="mb-6  flex justify-between">
                     <button
@@ -321,6 +254,70 @@ export default RegisterSite
 
 
 
+
+// {formData.buildings.map((building, buildingIndex) => (
+//     <div key={buildingIndex}>
+//         <label className="block mb-2 text-sm font-medium text-gray-900 ">
+//             Building Block
+//         </label>
+//         <input
+//             className="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+//             placeholder='Building Block'
+//             type="text"
+//             name="block"
+//             defaultValue={building.block}
+//             onChange={(e) => handleBuildingInputChange(e)}
+//         />
+
+//         {building.flats.map((flat, flatIndex) => (
+//             <div className='flex flex-col gap-4 mt-4' key={flatIndex}>
+//                 <label className="block text-sm font-medium text-gray-900 ">
+//                     Flat Name
+//                 </label>
+//                 <input
+//                     type="text"
+//                     className="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+//                     placeholder='Flat Name'
+//                     name="flat_name"
+//                     value={flat.flat_name}
+//                     onChange={(e) => handleFlatInputChange(buildingIndex, flatIndex, e)}
+//                 />
+
+//                 <label className="block text-sm font-medium text-gray-900 ">
+//                     Flat Image
+//                 </label>
+//                 <input
+//                     type="file"
+//                     accept="image/*"
+//                     onChange={(e) => handleImageChange(buildingIndex, flatIndex, e)}
+//                 />
+
+//                 <label className="block text-sm font-medium text-gray-900 ">
+//                     Flat Type
+//                 </label>
+//                 {/* <input
+
+//                     type="text"
+//                     name="flat_type"
+//                     value={flat.flat_type}
+//                     onChange={(e) => handleFlatInputChange(buildingIndex, flatIndex, e)}
+//                 /> */}
+//                 <select
+//                     className="w-full mb-4 px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+//                     name="flat_type"
+//                     value={flat.flat_type}
+//                     onChange={(e) => handleFlatInputChange(buildingIndex, flatIndex, e)}
+//                 >
+//                     <option value="1 BHK">1 BHK</option>
+//                     <option value="2 BHK">2 BHK</option>
+//                     <option value="3 BHK">3 BHK</option>
+//                     <option value="Pent House">Pent House</option>
+//                 </select>
+
+//             </div>
+//         ))}
+//     </div>
+// ))}
 
 
 

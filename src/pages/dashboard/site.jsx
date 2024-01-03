@@ -79,7 +79,7 @@ export function Site() {
                                         Architects design sites
                                     </Typography>
                                     <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
-                                        {tableData.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase()))
+                                        {tableData?.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase()))
                                             .map((site, index) => (
                                                 <Card key={index} color="transparent" shadow={false}>
                                                     <CardHeader
