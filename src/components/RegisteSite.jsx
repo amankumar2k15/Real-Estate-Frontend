@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { setFormValue } from '@/store/slice/sellerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-// import { RegisterSiteService } from '@/services/api.service';
+import { RegisterSiteService } from '@/services/api.service';
 import { SyncLoader } from "react-spinners";
 
 const RegisterSite = ({ fetchBuyer, closeForm }) => {
@@ -12,7 +12,6 @@ const RegisterSite = ({ fetchBuyer, closeForm }) => {
 
     const handleInput = (key, value) => {
         dispatch(setFormValue({ type: "fill", data: { key, value } }));
-
     };
 
     const handleFileInput = (selectedKey, selectedFile) => {
@@ -35,7 +34,6 @@ const RegisterSite = ({ fetchBuyer, closeForm }) => {
         Object.keys(data).forEach((key) => {
             formData.append(key, data[key]);
         });
-
 
         //FormData---------------------------------------->
 
@@ -121,13 +119,50 @@ const RegisterSite = ({ fetchBuyer, closeForm }) => {
                     </div>
                 </div>
 
+                <div className="mb-4 md:flex ">
+                    {/* Username  */}
+                    <div className="mb-4 md:mr-2 md:mb-0">
+                        <label
+                            className="block mb-2 text-sm font-medium text-gray-900 "
+                            htmlFor="site_name"
+                        >
+                            Building Name
+                        </label>
+                        <input
+                            className="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                            id="site_name"
+                            type="text"
+                            placeholder="Building Name"
+                            value={data?.site_name || ""}
+                            onChange={(e) => handleInput("site_name", e.target.value)}
+                        />
+                    </div>
+                    {/* Email  */}
+                    <div className="md:ml-2">
+                        <label
+                            className="block mb-2 text-sm font-medium text-gray-900 "
+                            htmlFor="site_location"
+                        >
+                            Flat Number
+                        </label>
+                        <input
+                            className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                            id="site_location"
+                            type="email"
+                            placeholder="Flat Number"
+                            value={data?.site_location || ""}
+                            onChange={(e) => handleInput("site_location", e.target.value)}
+                        />
+                    </div>
+                </div>
+
                 <div className="mb-4 md:flex flex-col">
                     {/* Adhaar Card */}
                     <label
                         className="block mb-2 text-sm font-medium text-gray-900 "
                         htmlFor="adhaar"
                     >
-                        Adhaar Card
+                        Add Site Images
                     </label>
                     <input className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="adhaar"
@@ -136,48 +171,7 @@ const RegisterSite = ({ fetchBuyer, closeForm }) => {
                     />
                 </div>
 
-                <div className="mb-4 md:flex flex-col">
-                    {/* blankCheque */}
-                    <label
-                        className="block mb-2 text-sm font-medium text-gray-900 "
-                        htmlFor="blankCheque"
-                    >
-                        Blank Cheque
-                    </label>
-                    <input className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                        id="blankCheque"
-                        type="file"
-                        onChange={(e) => handleFileInput("blankCheque", e.target.files[0])}
-                    />
-                </div>
 
-                <div className="mb-4 md:flex flex-col">
-                    {/* //Pan card  */}
-                    <label className="block mb-2 text-sm font-medium text-gray-900 "
-                        htmlFor="companyPan">
-                        Company Pan
-                    </label>
-                    <input className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                        id="companyPan"
-                        type="file"
-                        onChange={(e) => handleFileInput("companyPan", e.target.files[0])}
-                    />
-                </div>
-
-                <div className='mb-4 md:flex flex-col'>
-                    {/* //COI */}
-                    <label
-                        className="block mb-2 text-sm font-medium text-gray-900 "
-                        htmlFor="certificate_of_incorporate"
-                    >
-                        Certificate of Incorporate
-                    </label>
-                    <input className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 "
-                        id="certificate_of_incorporate"
-                        type="file"
-                        onChange={(e) => handleFileInput("certificate_of_incorporate", e.target.files[0])}
-                    />
-                </div>
 
 
 

@@ -1,23 +1,25 @@
+import { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Avatar, Typography, Tabs, TabsHeader, Tab, Switch, Tooltip, Button, } from "@material-tailwind/react";
 // import { HomeIcon, ChatBubbleLeftEllipsisIcon, Cog6ToothIcon, PencilIcon, } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "react-router-dom";
 // import { ProfileInfoCard, MessageCard } from "@/widgets/cards";
 import { projectsData } from "@/data";
-import IndividualProfile from "@/components/individualProfile";
 import Pagination from "@/components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import Modal from "@/components/Modal";
+import { setIndividualOpen } from "@/store/slice/siteSlice";
 import { setHeaderDetails } from "@/store/slice/headerSlice";
+import { setTableData } from "@/store/slice/dashboardSlice";
+import Modal from "@/components/Modal";
 import RegisterSite from "@/components/RegisteSite";
-import { fetchBuyerService } from "@/services/api.service";
+import { fetchSiteService } from "@/services/api.service";
+import IndividualSite from "@/components/individualSite";
+import NoData from "@/components/NoData";
 
 export function Site() {
-
     const { pathname } = useLocation();
     const dispatch = useDispatch()
-    // const { tableData } = useSelector((state) => state.dashboard);
-    const { isIndividualOpen } = useSelector((state) => state.buyer);
+    const { tableData } = useSelector((state) => state.dashboard);
+    const { isIndividualOpen } = useSelector((state) => state.site);
     const { search } = useSelector((state) => state.header)
     const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
     const [isFormVisible, setIsFormVisible] = useState(false);
@@ -34,9 +36,9 @@ export function Site() {
         setIsFormVisible(false);
     };
 
-    const fetchBuyer = () => {
-        fetchBuyerService().then((res) => {
-            // console.log(res);
+    const fetchSite = () => {
+        fetchSiteService().then((res) => {
+            console.log(res);
             dispatch(setTableData(res?.data.result))
         }).catch((err) => {
             console.log(err);
@@ -44,7 +46,7 @@ export function Site() {
     }
 
     useEffect(() => {
-        fetchBuyer()
+        fetchSite()
     }, [])
 
 
@@ -98,17 +100,17 @@ export function Site() {
                                         Architects design sites
                                     </Typography>
                                     <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
-                                        {projectsData.map(
-                                            ({ img, title, description, tag, route, members }) => (
-                                                <Card key={title} color="transparent" shadow={false}>
+                                        {tableData.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase()))
+                                            .map((site, index) => (
+                                                <Card key={index} color="transparent" shadow={false}>
                                                     <CardHeader
                                                         floated={false}
                                                         color="gray"
                                                         className="mx-0 mt-0 mb-4 h-64 xl:h-40"
                                                     >
                                                         <img
-                                                            src={img}
-                                                            alt={title}
+                                                            src={site.site_image}
+                                                            alt={site.site_name}
                                                             className="h-full w-full object-cover"
                                                         />
                                                     </CardHeader>
@@ -117,34 +119,38 @@ export function Site() {
                                                             variant="small"
                                                             className="font-normal text-blue-gray-500"
                                                         >
-                                                            {tag}
+                                                            {`Site ${index + 1}`}
                                                         </Typography>
                                                         <Typography
                                                             variant="h5"
                                                             color="blue-gray"
                                                             className="mt-1 mb-2"
                                                         >
-                                                            {title}
+                                                            {site.site_name}
                                                         </Typography>
                                                         <Typography
                                                             variant="small"
                                                             className="font-normal text-blue-gray-500"
                                                         >
-                                                            {description}
+                                                            {site.site_description}
                                                         </Typography>
                                                     </CardBody>
                                                     <CardFooter className="mt-6 flex items-center justify-between py-0 px-1">
-                                                        <Link to={route}>
-                                                            <Button variant="outlined" size="sm">
-                                                                view Site
-                                                            </Button>
-                                                        </Link>
+                                                        <Button variant="outlined" size="sm"
+                                                            onClick={(e) => { dispatch(setIndividualOpen(true)), setIndividualData({ isOpen: true, data: site }) }}
+                                                        >
+                                                            view Site
+                                                        </Button>
                                                     </CardFooter>
                                                 </Card>
                                             )
-                                        )}
+                                            )}
                                     </div>
+
+
                                 </div>
+                                {tableData?.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
+
 
 
                             </CardBody>
@@ -156,7 +162,7 @@ export function Site() {
 
                     :
 
-                    <IndividualProfile data={isIndividual.data} />
+                    <IndividualSite data={isIndividual.data} />
 
             }
 
@@ -166,7 +172,7 @@ export function Site() {
                 <>
                     <div className="p-4 xl:ml-80">
                         <Modal title="Add Site" closeForm={closeForm} isFormVisible={isFormVisible} >
-                            <RegisterSite fetchBuyer={fetchBuyer} closeForm={closeForm} />
+                            <RegisterSite fetchSite={fetchSite} closeForm={closeForm} />
                         </Modal>
                     </div>
                 </>

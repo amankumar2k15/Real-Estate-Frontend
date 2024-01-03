@@ -4,6 +4,7 @@ import buyerReducer from "./slice/buyerSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slice/userSlice";
 import headerReduce from "./slice/headerSlice";
+import siteReducer from "./slice/siteSlice";
 
 
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     buyer: buyerReducer,
     user: userReducer,
     header: headerReduce,
+    site: siteReducer
 })
 
 

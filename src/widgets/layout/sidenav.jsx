@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setIndividualOpen as setBuyerIndividual } from "@/store/slice/buyerSlice";
 import { setIndividualOpen as setSellerIndividual } from "@/store/slice/sellerSlice";
+import { setIndividualOpen as setSiteIndividual } from "@/store/slice/siteSlice";
 
 export function Sidenav({ brandImg, brandName, routes }) {
   const { pathname } = useLocation()
@@ -28,7 +29,9 @@ export function Sidenav({ brandImg, brandName, routes }) {
   const handleIndividualOpen = () => {
     pathname === "/dashboard/buyer" ? dispatchh(setBuyerIndividual(false))
       :
-      pathname === "/dashboard/seller" && dispatchh(setSellerIndividual(false))
+      pathname === "/dashboard/seller" ? dispatchh(setSellerIndividual(false))
+        :
+        pathname === "/dashboard/site" && dispatchh(setSiteIndividual(false))
 
   };
 

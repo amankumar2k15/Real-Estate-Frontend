@@ -1,14 +1,14 @@
-import { Card, CardBody, CardHeader, Avatar, Typography, } from "@material-tailwind/react";
 import { useState } from "react";
+import { setIndividualOpen } from "@/store/slice/siteSlice";
+import { Card, CardBody, CardHeader, Avatar, Typography, } from "@material-tailwind/react";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
-import { setIndividualOpen as setBuyerIndividual } from "@/store/slice/buyerSlice";
-import { setIndividualOpen as setSellerIndividual } from "@/store/slice/sellerSlice";
 import { useLocation } from "react-router-dom";
 
 function IndividualSite({ data }) {
+    console.log("sma", data)
+    const [inputFields, setInputFields] = useState([{ text: '', file: null }]);
     const { pathname } = useLocation()
-    console.log(pathname)
     console.log("data inside individual component ", data)
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,16 +24,38 @@ function IndividualSite({ data }) {
         setIsModalOpen(false);
     };
 
-
     const handleIndividualOpen = () => {
-        pathname === "/dashboard/seller" ? dispatch(setSellerIndividual(false))
-            : pathname === "/dashboard/buyer" && dispatch(setBuyerIndividual(false))
+        pathname === "/dashboard/site" && dispatch(setIndividualOpen(false))
     };
 
+    //input and file type add or delete
+    const handleTextChange = (index, value) => {
+        const newInputFields = [...inputFields];
+        newInputFields[index].text = value;
+        setInputFields(newInputFields);
+    };
+
+    const handleFileChange = (index, file) => {
+        const newInputFields = [...inputFields];
+        newInputFields[index].file = file;
+        setInputFields(newInputFields);
+    };
+
+    const handleAddInput = () => {
+        setInputFields([...inputFields, { text: '', file: null }]);
+    };
+
+    const handleDeleteInput = (index) => {
+        const newInputFields = [...inputFields];
+        newInputFields.splice(index, 1);
+        setInputFields(newInputFields);
+    };
+
+
     const listingData = [
-        { key: "fullName", value: data?.fullName },
-        { key: "email", value: data?.email },
-        { key: "state", value: data?.state },
+        { key: "site name", value: data?.fullName },
+        { key: "site description", value: data?.email },
+        { key: "site_location", value: data?.state },
         { key: "city", value: data?.city },
         { key: "pin code", value: data?.pincode },
         { key: "phone", value: data?.phone },
@@ -45,8 +67,6 @@ function IndividualSite({ data }) {
     const imgData = [
         { title: "adhaar", img: data?.adhaar },
         { title: "blank Cheque", img: data?.blankCheque },
-        { title: pathname === "/dashboard/seller" ? "Pan" : "Company Pan", img: pathname === "/dashboard/seller" ? data?.companyPan : pathname === "/dashboard/buyer" && data?.pan },
-        { title: pathname === "/dashboard/seller" ? "COI" : "SOF", img: pathname === "/dashboard/seller" ? data?.certificate_of_incorporate : pathname === "/dashboard/buyer" && data?.source_of_fund },
     ]
     console.log(imgData)
 
@@ -59,6 +79,49 @@ function IndividualSite({ data }) {
             </div>
             <Card className="mx-1 mb-6 lg:mx-4 border border-blue-gray-100">
                 <CardBody className="p-4">
+
+                    <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-2">
+                        <Card color="transparent" shadow={false}>
+                            <CardHeader
+                                floated={false}
+                                color="gray"
+                                className="mx-0 mt-0 mb-4 h-64 sm:h-64 xl:h-40"
+                            >
+                                <img
+                                    src={data?.adhaar}
+                                    alt={data?.adhaar}
+                                    className="h-full w-full object-cover"
+                                />
+                            </CardHeader>
+                            <CardBody className="py-0 px-1">
+                                <Typography variant="h5" color="blue-gray" className="mt-1 mb-2 text-xl md:text-md md:whitespace-nowrap capitalize" >
+                                    Site Images
+                                </Typography>
+                            </CardBody>
+                        </Card>
+                    </div>
+
+
+                    <div className='flex flex-col gap-2'>
+                        {inputFields.map((input, index) => (
+                            <div key={index}>
+                                <input
+                                    type="text"
+                                    placeholder="Enter text"
+                                    value={input.text}
+                                    onChange={(e) => handleTextChange(index, e.target.value)}
+                                />
+                                <input className='outline-none'
+                                    type="file"
+                                    onChange={(e) => handleFileChange(index, e.target.files[0])}
+                                />
+                                <button className='py-2 px-4 rounded-lg hover:bg-red-400 bg-red-600 text-white' onClick={() => handleDeleteInput(index)}>Delete</button>
+                            </div>
+                        ))}
+                        <button className='py-2 px-4 rounded-lg w-20 hover:bg-green-400 bg-green-600 text-white' onClick={handleAddInput}>Add</button>
+                    </div>
+
+
                     <div className="mb-10 flex items-center justify-between flex-wrap gap-6">
                         <div className="flex items-center gap-6">
                             <Avatar
@@ -93,7 +156,7 @@ function IndividualSite({ data }) {
                             className="mx-0 mt-0 flex items-center justify-between gap-1"
                         >
                             <Typography variant="h6" color="blue-gray">
-                                Profile Information
+                                Site Information
                             </Typography>
                         </CardHeader>
 
@@ -201,3 +264,4 @@ function IndividualSite({ data }) {
 }
 
 export default IndividualSite;
+

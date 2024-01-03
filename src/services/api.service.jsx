@@ -28,11 +28,14 @@ export const RegisterGoogleService = async () => {
 export const RegisterSellerService = async (data) => {
     return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}seller/create-seller`, data, config);
 };
-export const DeleteIndividualSeller = async (id) => {
-    return await axios.delete(`${VITE_BACKEND_PORT_DEVELOPMENT}seller/delete-seller/${id}`);
-};
 export const RegisterBuyerService = async (data) => {
     return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}buyer/create-buyer`, data, config);
+};
+export const RegisterSiteService = async (data) => {
+    return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}site/create-site`, data, config);
+};
+export const DeleteIndividualSeller = async (id) => {
+    return await axios.delete(`${VITE_BACKEND_PORT_DEVELOPMENT}seller/delete-seller/${id}`);
 };
 export const DeleteIndividualBuyer = async (id) => {
     return await axios.delete(`${VITE_BACKEND_PORT_DEVELOPMENT}buyer/delete-buyer/${id}`);
@@ -42,6 +45,9 @@ export const fetchSellerService = async () => {
 };
 export const fetchBuyerService = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}buyer/list-buyer`);
+};
+export const fetchSiteService = async () => {
+    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}site/list-site`);
 };
 
 export const fetchUserWhoAmI = async (config) => {
