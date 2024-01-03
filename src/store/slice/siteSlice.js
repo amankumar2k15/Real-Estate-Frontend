@@ -8,14 +8,22 @@ const siteSlice = createSlice({
     name: "site",
     initialState: {
         data: {
-            site_name: null,
-            site_image: null,
-            site_location: null,
-            site_description: null,
-            block: null,
-            flat_name: null,
-            flat_image: null,
-            flat_type: null
+            site_name: '',
+            site_image: '',
+            site_location: '',
+            site_description: '',
+            buildings: [
+                {
+                    block: '',
+                    flats: [
+                        {
+                            flat_name: '',
+                            flat_image: null,
+                            flat_type: '',
+                        },
+                    ],
+                },
+            ],
         },
         isIndividualOpen: false
     },

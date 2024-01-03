@@ -29,9 +29,8 @@ export function Dashboard() {
         headers: { "Authorization": `Bearer ${data?.token}`, },
       }
       fetchUserWhoAmI(config).then((res) => {
-        console.log(res , "shashank sharma is here");
-       dispatchh(setUserRole(res?.data?.results?.role)) 
-
+        console.log(res, "shashank sharma is here");
+        dispatchh(setUserRole(res?.data?.results?.role))
       }).catch((err) => {
         console.log(err);
       })
@@ -45,7 +44,6 @@ export function Dashboard() {
 
   useEffect(() => {
     getUser();
-
     // alert("hey")
   }, [])
 
@@ -76,29 +74,29 @@ export function Dashboard() {
         </IconButton>
 
         <Suspense
-      fallback={
-        <>
-          <div
-            className="flex items-center justify-center w-full"
-            style={{ height: "80vh" }}
-          >
-            <SyncLoader size={14} color="#3b3b3b" />
-          </div>
-        </>
-      }
-    >
-       <Routes>
-          {routes.map(
-            ({ layout, pages }) =>
-              layout === "dashboard" &&
-              pages.map(({ path, element }) => (
-                <Route exact path={path} element={element} />
-              ))
-          )}
-        </Routes>
-      
-    </Suspense>
-       
+          fallback={
+            <>
+              <div
+                className="flex items-center justify-center w-full"
+                style={{ height: "80vh" }}
+              >
+                <SyncLoader size={14} color="#3b3b3b" />
+              </div>
+            </>
+          }
+        >
+          <Routes>
+            {routes.map(
+              ({ layout, pages }) =>
+                layout === "dashboard" &&
+                pages.map(({ path, element }) => (
+                  <Route exact path={path} element={element} />
+                ))
+            )}
+          </Routes>
+
+        </Suspense>
+
 
         <div className="text-blue-gray-600">
           <Footer />

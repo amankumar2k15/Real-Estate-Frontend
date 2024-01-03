@@ -1,7 +1,6 @@
 import { HomeIcon, UserCircleIcon, TableCellsIcon, InformationCircleIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { lazy } from "react";
 import Site from "./pages/dashboard/site";
-import IndividualSite from "./components/individualSite";
 // import { Home, Profile, Trustee, Notifications, Seller, Buyer } from "@/pages/dashboard";
 const Home = lazy(() => import("@/pages/dashboard/home"));
 const Profile = lazy(() => import("@/pages/dashboard/profile"));
@@ -25,7 +24,6 @@ export const routes = [
       { icon: <TableCellsIcon {...icon} />, name: "trustee", path: "/trustee", element: <Trustee />, role: "seller" },
       { icon: <UserCircleIcon {...icon} />, name: "profile", path: "/profile", element: <Profile />, role: "seller" },
       { icon: <MapPinIcon {...icon} />, name: "Site", path: "/site", element: <Site />, role: "seller" },
-      // { icon: <MapPinIcon {...icon} />, name: "Individual-Site", path: "/individual-site", element: <IndividualSite />, role: "seller" },
       { icon: <InformationCircleIcon {...icon} />, name: "notifications", path: "/notifications", element: <Notifications />, role: "seller" },
     ],
   },

@@ -10,7 +10,7 @@ import { setIndividualOpen } from "@/store/slice/siteSlice";
 import { setHeaderDetails } from "@/store/slice/headerSlice";
 import { setTableData } from "@/store/slice/dashboardSlice";
 import Modal from "@/components/Modal";
-import RegisterSite from "@/components/RegisteSite";
+import RegisterSite from "@/components/RegisterSite";
 import { fetchSiteService } from "@/services/api.service";
 import IndividualSite from "@/components/individualSite";
 import NoData from "@/components/NoData";
@@ -48,27 +48,6 @@ export function Site() {
     useEffect(() => {
         fetchSite()
     }, [])
-
-
-    const siteItem = [
-        { site_name: null },
-        { site_location: null },
-        {
-            buildings: [
-                {
-                    block: null,
-                    flats: [
-                        {
-                            flat_name: null,
-                            flat_type: null
-                        }
-                    ]
-                },
-
-            ],
-        }
-    ]
-
 
     return (
         <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -150,8 +129,6 @@ export function Site() {
 
                                 </div>
                                 {tableData?.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
-
-
 
                             </CardBody>
                         </Card>

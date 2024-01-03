@@ -12,7 +12,6 @@ import { Provider } from "react-redux";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
- 
     <ToastContainer
       position="top-center"
       autoClose={1500}
