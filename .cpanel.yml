@@ -1,5 +1,5 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/bharates/public_html/subdomain
+    - export DEPLOYPATH=/home/bharates/public_html/subdomains/public_html/subdomains
     - rsync -avz --delete ./dist/ $DEPLOYPATH
     - npm install --production --prefix $DEPLOYPATH
