@@ -103,7 +103,6 @@ export function SignIn() {
       <div className="w-[25%] h-[580px] hidden lg:block">
         <img
           src="/gif/logo.gif"
-          // src="/gif/bharatEscrow.gif"
           className="h-[580px] w-full object-cover rounded-3xl"
         />
       </div>
