@@ -19,6 +19,7 @@ const config = {
     headers: { "Content-Type": "multipart/form-data", },
 }
 
+
 export const LoginService = async (data) => {
     return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}user/login`, data);
 };
@@ -50,8 +51,8 @@ export const fetchSiteService = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}site/list-site`);
 };
 
-export const fetchUserWhoAmI = async (config) => {
-    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}user/who-am-i`, config);
+export const fetchUserWhoAmI = async () => {
+    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}user/who-am-i`);
 };
 
 

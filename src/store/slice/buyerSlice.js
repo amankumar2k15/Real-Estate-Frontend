@@ -25,6 +25,8 @@ const buyerSlice = createSlice({
         isIndividualOpen: false
     },
     reducers: {
+        resetBuyer: () => initialState,
+
         setFormValue: (state, action) => {
             if (action.payload.type === "fill") {
                 const { key, value } = action.payload.data
@@ -53,5 +55,5 @@ const buyerSlice = createSlice({
 })
 
 
-export const { setFormValue, setIndividualOpen } = buyerSlice.actions
+export const { setFormValue, setIndividualOpen, resetBuyer } = buyerSlice.actions
 export default buyerSlice.reducer;

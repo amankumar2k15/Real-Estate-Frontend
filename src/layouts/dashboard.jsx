@@ -7,9 +7,7 @@ import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 import { setSearch } from "@/store/slice/headerSlice";
 import { useDispatch } from "react-redux";
 import { Suspense, useEffect } from "react";
-import { setData, setToken } from "@/helper/tokenHelper";
-import { setUserDetail, setUserRole } from "@/store/slice/userSlice";
-import axios from "axios";
+import { setUserName, setUserRole } from "@/store/slice/userSlice";
 import { fetchUserWhoAmI } from "@/services/api.service";
 import { SyncLoader } from "react-spinners";
 
@@ -21,22 +19,12 @@ export function Dashboard() {
 
   const getUser = async () => {
     try {
-      console.log("inside get User ================>");
-      const url = `http://localhost:4400/api/v1/auth/login/success`;
-      const { data } = await axios.get(url, { withCredentials: true });
-      setToken(data?.token)
-      const config = {
-        headers: { "Authorization": `Bearer ${data?.token}`, },
-      }
-      fetchUserWhoAmI(config).then((res) => {
-        console.log(res, "shashank sharma is here");
+      await fetchUserWhoAmI().then((res) => {
         dispatchh(setUserRole(res?.data?.results?.role))
+        dispatchh(setUserName(res?.data?.results?.fullName))
       }).catch((err) => {
         console.log(err);
       })
-
-      setData(data?.user)
-      dispatchh(setUserDetail(data?.user))
     } catch (err) {
       console.log(err);
     }
@@ -44,12 +32,10 @@ export function Dashboard() {
 
   useEffect(() => {
     getUser();
-    // alert("hey")
   }, [])
 
   useEffect(() => {
     dispatchh(setSearch(""))
-    console.log("called=================");
   }, [pathname]);
 
   return (

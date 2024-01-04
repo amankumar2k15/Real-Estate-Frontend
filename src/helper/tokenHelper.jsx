@@ -13,6 +13,10 @@ export const setData = (data) => {
     localStorage.setItem('data', JSON.stringify(data));
 }
 
+export const setRole = (role) => {
+    localStorage.setItem('role', role);
+}
+
 // get data by key from local storage
 export const getData = (key) => {
     return JSON.parse(localStorage.getItem('data'))[key];

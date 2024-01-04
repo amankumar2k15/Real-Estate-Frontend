@@ -9,19 +9,18 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         data: {
-            _id: "",
             username: "John Doe",
-            googleId: "",
-            email: "Alex Motes",
-            phone: 9999889900,
-            profile: "",
-            role: "user",
         },
-        role: "user"
+        role: "buyer"
     },
     reducers: {
+        resetUser: () => initialState,
+
         setUserDetail: (state, action) => {
             state.data = action.payload;
+        },
+        setUserName: (state, action) => {
+            state.data.username = action.payload;
         },
         setUserRole: (state, action) => {
             state.role = action.payload;
@@ -44,5 +43,5 @@ const userSlice = createSlice({
 
 
 
-export const { setUserDetail , setUserRole } = userSlice.actions
+export const { setUserDetail, setUserRole, setUserName, resetUser } = userSlice.actions
 export default userSlice.reducer;

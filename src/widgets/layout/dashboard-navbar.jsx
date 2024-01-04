@@ -11,6 +11,7 @@ export function DashboardNavbar() {
   const dispatchh = useDispatch()
   const { search } = useSelector((state) => state.header)
   const { role, profile, username } = useSelector((state) => state.user.data)
+  console.log(username)
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
@@ -77,7 +78,7 @@ export function DashboardNavbar() {
               className="hidden capitalize items-center gap-1 font-12 px-4 xl:flex"
             >
               {
-                true ?
+                profile ?
                   <img
                     className="h-8 max-w-8 rounded-full object-cover object-center"
                     src={profile}
@@ -87,7 +88,7 @@ export function DashboardNavbar() {
 
               }
               <label className="capitalize">
-                {username ? username.split(' ')[0] + " " + username.split(' ')[1] : "user"}
+                {username && username}
               </label>
             </Button>
             <IconButton

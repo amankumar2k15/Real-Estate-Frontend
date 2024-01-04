@@ -1,46 +1,55 @@
-import { setToken } from "@/helper/tokenHelper";
+import { setRole, setToken } from "@/helper/tokenHelper";
 import { LoginService } from "@/services/api.service";
-import { setUserRole } from "@/store/slice/userSlice";
-import { Card, Input, Checkbox, Button, Typography, } from "@material-tailwind/react";
+import { setUserName, setUserRole } from "@/store/slice/userSlice";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { Input, Button, Typography, } from "@material-tailwind/react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { SyncLoader } from "react-spinners";
 
 
 export function SignIn() {
+  const [isLoading, setLoading] = useState(false)
+  const [hide, setHide] = useState(false)
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({ email: "", password: "" })
   const navigate = useNavigate()
-  // const googleAuth = () => {
-  //   window.open(
-  //     `http://localhost:4400/api/v1/auth/google/callback`,
-  //     "_self"
-  //   );
-  // };
-
 
 
   const handleSubmit = (e) => {
-    console.log(formData)
     e.preventDefault();
-    // if (!formData.email && !formData.password) return toast.error("Please fill the required fields")
-    LoginService(formData).then((res) => {
-      navigate("/dashboard/home")
-      setToken(res.data.results.token)
-      dispatch(setUserRole(res?.data?.results?.role))
-      console.log(res)
-      toast.success(res.data.message)
-    }).catch((err) => console.log(err.response.data.message))
+    setLoading(true)
+    console.log(formData)
+    if (!formData.email) {
+      setLoading(false)
+      return toast.warning("Email is missing")
+    }
+    else if (!formData.password) {
+      setLoading(false)
+      return toast.warning("Password is missing")
+    }
+    else {
+      LoginService(formData).then((res) => {
+        navigate("/dashboard/home")
+        setToken(res.data.results.token)
+        dispatch(setUserRole(res?.data?.results?.role))
+        dispatch(setUserName(res?.data?.results?.username))
+        setRole(res?.data?.results?.role)
+        // console.log(res)
+        toast.success(`${(res.data.results.role).toUpperCase()} logged in successfully`)
+      }).catch((err) => {
+        setLoading(false)
+        toast.error(err.response.data.message)
+      })
+    }
   }
 
   return (
     <section className="m-8 flex gap-4">
       <div className="w-full lg:w-3/5 mt-24">
-        {/* <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Sign In</Typography>
-          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Enter your email and password to Sign In.</Typography>
-        </div> */}
+
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
@@ -61,33 +70,40 @@ export function SignIn() {
             <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
               Your password
             </Typography>
-            <Input
-              size="lg"
-              placeholder="****************"
-              onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
+            <div className="relative">
+              <Input
+                type={hide ? "text" : "password"}
+                size="lg"
+                placeholder="****************"
+                onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+              <div className="h-5 w-5 absolute right-3 bottom-3.5 cursor-pointer"
+                onClick={() => setHide(!hide)}
+              >
+                {hide ?
+                  <EyeIcon />
+                  :
+                  <EyeSlashIcon />
+                }
+              </div>
+            </div>
+
           </div>
 
           <Button className="mt-6" fullWidth onClick={handleSubmit}>
-            Sign In
+            {isLoading ? <SyncLoader size={8} color="#fff" /> : "Sign In"}
           </Button>
-
-
-          {/* <Typography variant="paragraph" className="text-center text-blue-gray-500 font-medium mt-4">
-            Not registered?
-            <Link to="/auth/sign-up" className="text-gray-900 ml-1">Create account</Link>
-          </Typography> */}
         </form>
 
       </div>
-      <div className="w-2/5 h-full hidden lg:block">
+      <div className="w-5/5 h-[580px] hidden lg:block">
         <img
-          src="/img/pattern.png"
-          className="h-full w-full object-cover rounded-3xl"
+          src="/gif/bharatEscrow.gif"
+          className="h-[580px] w-full object-cover rounded-3xl"
         />
       </div>
 

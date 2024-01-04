@@ -42,6 +42,7 @@ const RegisterSeller = ({ fetchSeller, closeForm }) => {
         try {
             let res = await RegisterSellerService(formData)
             if (res) {
+                console.log(res)
                 // navigate("/dashboard/home")
                 fetchSeller()
                 closeForm()
@@ -69,7 +70,7 @@ const RegisterSeller = ({ fetchSeller, closeForm }) => {
                 clearFileInput('pan');
                 clearFileInput('source_of_fund');
 
-                toast.success("Seller Added")
+                toast.success(`${res.data.result.fullName} registered successfully`)
             }
         } catch (err) {
             toast.success(err.response.data.message)

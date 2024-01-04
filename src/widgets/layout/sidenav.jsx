@@ -6,9 +6,10 @@ import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { clearStorage, getData, removeToken } from "@/helper/tokenHelper";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { setIndividualOpen as setBuyerIndividual } from "@/store/slice/buyerSlice";
+import { resetBuyer, setIndividualOpen as setBuyerIndividual } from "@/store/slice/buyerSlice";
 import { setIndividualOpen as setSellerIndividual } from "@/store/slice/sellerSlice";
 import { setIndividualOpen as setSiteIndividual } from "@/store/slice/siteSlice";
+import { resetUser } from "@/store/slice/userSlice";
 
 export function Sidenav({ brandImg, brandName, routes }) {
   const { pathname } = useLocation()
@@ -36,6 +37,8 @@ export function Sidenav({ brandImg, brandName, routes }) {
   };
 
   const handleLogOut = () => {
+    dispatchh(resetUser)
+    dispatchh(resetBuyer)
     navigate("/sign-in")
     removeToken()
     clearStorage()
