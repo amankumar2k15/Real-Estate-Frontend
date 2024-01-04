@@ -48,7 +48,7 @@ export function SignIn() {
 
   return (
     <section className=" flex gap-4">
-      <div className="w-full lg:w-[70%] mt-24">
+      <div className="w-full lg:w-[70%] mt-28">
 
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
           <div className="mb-1 flex flex-col gap-6">
