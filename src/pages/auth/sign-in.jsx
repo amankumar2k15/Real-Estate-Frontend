@@ -48,7 +48,7 @@ export function SignIn() {
 
   return (
     <section className="m-8 flex gap-4">
-      <div className="w-full lg:w-3/5 mt-24">
+      <div className="w-full lg:w-[70%] mt-24">
 
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
           <div className="mb-1 flex flex-col gap-6">
@@ -100,9 +100,9 @@ export function SignIn() {
         </form>
 
       </div>
-      <div className="w-2/5 h-[580px] hidden lg:block">
+      <div className="w-[25%] h-[580px] hidden lg:block">
         <img
-          src="/img/pattern.png"
+          src="/gif/logo.gif"
           // src="/gif/bharatEscrow.gif"
           className="h-[580px] w-full object-cover rounded-3xl"
         />
