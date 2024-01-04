@@ -20,7 +20,7 @@ const config = {
 }
 
 export const LoginService = async (data) => {
-    return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}auth/login-user`, data);
+    return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}user/login`, data);
 };
 export const RegisterGoogleService = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}register`);
