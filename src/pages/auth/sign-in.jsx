@@ -100,9 +100,10 @@ export function SignIn() {
         </form>
 
       </div>
-      <div className="w-5/5 h-[580px] hidden lg:block">
+      <div className="w-2/5 h-[580px] hidden lg:block">
         <img
-          src="/gif/bharatEscrow.gif"
+          src="/img/pattern.png"
+          // src="/gif/bharatEscrow.gif"
           className="h-[580px] w-full object-cover rounded-3xl"
         />
       </div>

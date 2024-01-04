@@ -11,7 +11,7 @@ import { setIndividualOpen as setSellerIndividual } from "@/store/slice/sellerSl
 import { setIndividualOpen as setSiteIndividual } from "@/store/slice/siteSlice";
 import { resetUser } from "@/store/slice/userSlice";
 
-export function Sidenav({ brandImg, brandName, routes }) {
+export function Sidenav({ brandName, routes }) {
   const { pathname } = useLocation()
   const dispatchh = useDispatch()
   const navigate = useNavigate()
@@ -55,11 +55,13 @@ export function Sidenav({ brandImg, brandName, routes }) {
       >
 
         <Link to="/" className="py-6 px-8 text-center">
-
           <Typography
             variant="h6"
             color={sidenavType === "dark" ? "white" : "blue-gray"}
           >
+            <div className="absolute top-4 left-10 ">
+              <img src="/img/logo.jpg" className="h-10 w-10" />
+            </div>
             {/* <img src={getData('profile')} height="40px" width="40px" /> */}
             {brandName}
           </Typography>
