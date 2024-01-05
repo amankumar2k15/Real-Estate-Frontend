@@ -33,23 +33,23 @@ function IndividualSite({ data }) {
 
                     <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-1 xl:grid-cols-1">
                         <Card color="transparent" shadow={false}>
-                            <CardBody className="py-0 px-1">
-                                <Typography variant="h5" color="blue-gray" className="mt-1 mb-2 text-xl md:text-md md:whitespace-nowrap capitalize" >
+                            <CardBody className="py-0 px-1 ">
+                                <Typography variant="h5" color="blue-gray" className="mt-1 w-1/4 mb-2 text-xl md:text-md md:whitespace-nowrap capitalize" >
                                     Site Image
                                 </Typography>
+                                <CardHeader
+                                    floated={false}
+                                    color="gray"
+                                    className="mx-0 mt-0 w-full lg:w-[70%] mb-4 h-3/4"
+                                // className="mx-0 mt-0 w-full mb-4 h-64 sm:h-64 xl:h-64"
+                                >
+                                    <img
+                                        src={data?.site_image}
+                                        alt={data?.site_image}
+                                        className="h-full w-full object-fit"
+                                    />
+                                </CardHeader>
                             </CardBody>
-                            <CardHeader
-                                floated={false}
-                                color="gray"
-                                className="mx-0 mt-0 w-full mb-4 h-3/4"
-                            // className="mx-0 mt-0 w-full mb-4 h-64 sm:h-64 xl:h-64"
-                            >
-                                <img
-                                    src={data?.site_image}
-                                    alt={data?.site_image}
-                                    className="h-full w-full object-cover"
-                                />
-                            </CardHeader>
                         </Card>
                     </div>
 
@@ -73,7 +73,7 @@ function IndividualSite({ data }) {
                                 variant="small"
                                 className="font-normal text-blue-gray-500"
                             >
-                                {data.site_description}
+                                {data?.site_description}
                             </Typography>
 
                             <ul className="grid grid-cols-1 sm:grid-cols-2 mt-12 gap-4 p-0 ">

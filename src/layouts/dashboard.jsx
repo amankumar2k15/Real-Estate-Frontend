@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { IconButton } from "@material-tailwind/react";
 import { Sidenav, DashboardNavbar, Configurator, Footer, } from "@/widgets/layout";
@@ -10,8 +10,10 @@ import { Suspense, useEffect } from "react";
 import { setUserName, setUserRole } from "@/store/slice/userSlice";
 import { fetchUserWhoAmI } from "@/services/api.service";
 import { SyncLoader } from "react-spinners";
+import { getToken } from "@/helper/tokenHelper";
 
 export function Dashboard() {
+  const navigate = useNavigate()
   const [controller, dispatch] = useMaterialTailwindController();
   const dispatchh = useDispatch()
   const { pathname } = useLocation()
@@ -29,6 +31,10 @@ export function Dashboard() {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (!getToken()) navigate("/auth/sign-in")
+  })
 
   useEffect(() => {
     getUser();
