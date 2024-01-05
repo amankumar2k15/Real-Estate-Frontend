@@ -42,7 +42,6 @@ export const routes = [
     role: "super-admin",
     pages: [
       { icon: <HomeIcon {...icon} />, name: "dashboard", path: "/home", element: <Home />, role: "super-admin" },
-      { icon: <UserCircleIcon {...icon} />, name: "buyer", path: "/buyer", element: <Buyer />, role: "super-admin" },
       { icon: <UserCircleIcon {...icon} />, name: "seller", path: "/seller", element: <Seller />, role: "super-admin" },
       { icon: <TableCellsIcon {...icon} />, name: "trustee", path: "/trustee", element: <Trustee />, role: "super-admin" },
       { icon: <UserCircleIcon {...icon} />, name: "profile", path: "/profile", element: <Profile />, role: "super-admin" },

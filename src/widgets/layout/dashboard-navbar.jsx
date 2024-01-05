@@ -11,7 +11,6 @@ export function DashboardNavbar() {
   const dispatchh = useDispatch()
   const { search } = useSelector((state) => state.header)
   const { role, profile, username } = useSelector((state) => state.user.data)
-  console.log(username)
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");

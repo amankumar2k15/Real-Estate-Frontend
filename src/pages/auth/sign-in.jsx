@@ -48,9 +48,13 @@ export function SignIn() {
 
   return (
     <section className=" flex gap-4">
-      <div className="w-full lg:w-[70%] mt-28">
+      <div className="w-[100%] lg:w-[60%] mt-24">
 
-        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
+        <div className="text-center">
+          <Typography variant="h2" className="font-bold mb-4">Sign In</Typography>
+          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Enter your email and password to Sign In.</Typography>
+        </div>
+        <form className="mt-8 mb-2 mx-auto w-72 sm:w-96 max-w-screen-lg lg:w-1/2">
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
               Your email
@@ -93,14 +97,22 @@ export function SignIn() {
             </div>
 
           </div>
+          <div className="flex items-center justify-end gap-2 mt-2">
+            <Typography variant="small" className="font-medium text-gray-900">
+              <Link to="/auth/forget-password">
+                Forgot Password
+              </Link>
+            </Typography>
+          </div>
 
           <Button className="mt-6" fullWidth onClick={handleSubmit}>
             {isLoading ? <SyncLoader size={8} color="#fff" /> : "Sign In"}
           </Button>
+
         </form>
 
       </div>
-      <div className="w-[25%] mt-7 h-[580px] hidden lg:block">
+      <div className="lg:w-[25%] mt-7 h-[580px] hidden lg:block">
         <img
           src="/gif/logo.gif"
           className="h-[580px] w-full object-cover rounded-3xl"

@@ -12,18 +12,6 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
         site_image: '',
         site_location: '',
         site_description: '',
-        // buildings: [
-        //     {
-        //         block: '',
-        //         flats: [
-        //             {
-        //                 flat_name: '',
-        //                 flat_image: null,
-        //                 flat_type: '',
-        //             },
-        //         ],
-        //     },
-        // ],
     });
     const [isLoading, setLoading] = useState(false)
     // const dispatch = useDispatch();
@@ -32,30 +20,11 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
-    // const handleFlatInputChange = (buildingIndex, flatIndex, e) => {
-    //     const updatedBuildings = [...formData.buildings];
-    //     updatedBuildings[buildingIndex].flats[flatIndex][e.target.name] = e.target.value;
-    //     setFormData({ ...formData, buildings: updatedBuildings });
-    // };
 
-    // const handleBuildingInputChange = (e) => {
-    //     setFormData((prev) => {
-    //         if (prev.buildings) {
-    //             prev.buildings[0].block = e.target.value
-    //         }
-    //         console.log("aman prev", prev)
-    //         return prev
-    //     })
-    // };
-
-    // const handleImageChange = (buildingIndex, flatIndex, e) => {
-    //     const updatedBuildings = [...formData.buildings];
-    //     updatedBuildings[buildingIndex].flats[flatIndex].flat_image = e.target.files[0];
-    //     setFormData({ ...formData, buildings: updatedBuildings });
-    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         console.log(formData)
 
         try {
@@ -66,15 +35,16 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
             formDataToSend.append('site_description', formData.site_description);
             // formDataToSend.append('buildings', JSON.stringify(formData.buildings));
 
-            const response = await axios.post('http://localhost:4400/api/v1/site/create-site', formDataToSend, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            toast.success("Site created successfully")
-            console.log('Site created successfully:', response.data);
-            // You can handle success, redirect, or any other action here
+            const response = await RegisterSiteService(formDataToSend);
+            if (response) {
+                fetchSite()
+                closeForm()
+                setLoading(false)
+                toast.success("Site created successfully")
+                console.log('Site created successfully:', response.data);
+            }
         } catch (error) {
+            setLoading(false)
             console.error('Error creating site:', error);
             // Handle error or show an error message to the user
         }
