@@ -111,7 +111,8 @@ export function Site() {
                                                             variant="small"
                                                             className="font-normal text-blue-gray-500"
                                                         >
-                                                            {site.site_description}
+                                                            {site.site_description.length > 25 ? `${site.site_description.slice(0, 25)}...` : site.site_description}
+
                                                         </Typography>
                                                     </CardBody>
                                                     <CardFooter className="mt-6 flex items-center justify-between py-0 px-1">
