@@ -1,0 +1,5 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/bharates/public_html/subdomains/realestate.bharatescrow.com
+    - rsync -avz --delete ./dist/ $DEPLOYPATH
+    - npm install --production --prefix $DEPLOYPATH
