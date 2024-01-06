@@ -8,9 +8,10 @@ import { setSearch } from "@/store/slice/headerSlice";
 import { useDispatch } from "react-redux";
 import { Suspense, useEffect } from "react";
 import { setUserName, setUserRole } from "@/store/slice/userSlice";
-import { fetchUserWhoAmI } from "@/services/api.service";
+import { fetchDashboardData, fetchUserWhoAmI } from "@/services/api.service";
 import { SyncLoader } from "react-spinners";
 import { getToken } from "@/helper/tokenHelper";
+import { setBuyerCount, setSellerCount, setSiteCount } from "@/store/slice/dashboardSlice";
 
 export function Dashboard() {
   const navigate = useNavigate()
@@ -32,12 +33,29 @@ export function Dashboard() {
     }
   };
 
+
+  const getDashboard = async () => {
+    try {
+      await fetchDashboardData().then((res) => {
+        dispatchh(setSellerCount(res?.data?.results?.sellerCount))
+        dispatchh(setBuyerCount(res?.data?.results?.buyerCount))
+        dispatchh(setSiteCount(res?.data?.results?.siteCount))
+        console.log(res , "res from dashboard API +++++++++++++++++++++++++++++");
+      }).catch((err) => {
+        console.log(err);
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     if (!getToken()) navigate("/auth/sign-in")
   })
 
   useEffect(() => {
     getUser();
+    getDashboard()
   }, [])
 
   useEffect(() => {

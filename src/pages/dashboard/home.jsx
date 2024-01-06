@@ -1,17 +1,83 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Card, CardHeader, CardBody, IconButton, Menu, MenuHandler, MenuList, MenuItem, Avatar, Tooltip, Progress, } from "@material-tailwind/react";
 import { EllipsisVerticalIcon, ArrowUpIcon, } from "@heroicons/react/24/outline";
 import { StatisticsCard } from "@/widgets/cards";
 import { StatisticsChart } from "@/widgets/charts";
-import { statisticsCardsData, statisticsChartsData, projectsTableData, ordersOverviewData, } from "@/data";
+import {  statisticsCardsData , statisticsChartsData, projectsTableData, ordersOverviewData, } from "@/data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "@/store/slice/headerSlice";
+import {
+  BanknotesIcon,
+  UserPlusIcon,
+  UsersIcon,
+  ChartBarIcon,
+} from "@heroicons/react/24/solid";
+
+
+
 
 export function Home() {
-  const dispatch = useDispatch()
+  const [cardData , setCardData] = useState(statisticsCardsData)
+  const dispatch = useDispatch();
+  const {sellerCount , buyerCount , siteCount} = useSelector((state)=>state.dashboard)
+  const {role} = useSelector((state)=>state.user)
 
 
+useEffect(()=>{
+  const statisticsCardsData = [
+    {
+      color: "gray",
+      role : ["super-admin"],
+      icon: BanknotesIcon,
+      title: "Sellers",
+      value: `Total ${sellerCount}`,
+      footer: {
+        color: "text-green-500",
+        value: "+55%",
+        label: "than last week",
+      },
+    },
+    {
+      color: "gray",
+      icon: UsersIcon,
+      title: "Buyers",
+      role : ["super-admin" , "seller"],
+      value: `Total ${buyerCount}`,
+      footer: {
+        color: "text-green-500",
+        value: "+3%",
+        label: "than last month",
+      },
+    },
+    ,
+    {
+      color: "gray",
+      icon: UsersIcon,
+      title: "Site",
+      role : ["super-admin" , "seller"],
+      value: `Total ${siteCount}`,
+      footer: {
+        color: "text-green-500",
+        value: "+3%",
+        label: "than last month",
+      },
+    },
+    {
+      color: "gray",
+      icon: UserPlusIcon,
+      title: "Escrow Acount",
+      role : ["super-admin"],
+      value: "10978888",
+      footer: {
+        color: "text-green-500",
+        value: "+2%",
+        label: "than yesterday",
+      },
+    }
+  ];
+  setCardData(statisticsCardsData)
+},[sellerCount])
 
   useEffect(() => {
     dispatch(setSearch(" "))
@@ -20,8 +86,9 @@ export function Home() {
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
-        {statisticsCardsData.map(({ icon, title, footer, ...rest }) => (
+        {cardData.map(({ icon, title, footer, role , ...rest }) => (
           <StatisticsCard
+          role={role}
             key={title}
             {...rest}
             title={title}
@@ -54,7 +121,7 @@ export function Home() {
           />
         ))}
       </div>
-      <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
+      {/* <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2 border border-blue-gray-100 shadow-sm">
           <CardHeader
             floated={false}
@@ -236,7 +303,7 @@ export function Home() {
             )}
           </CardBody>
         </Card>
-      </div>
+      </div> */}
     </div>
   );
 }

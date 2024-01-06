@@ -6,10 +6,13 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-export function StatisticsCard({ color, icon, title, value, footer }) {
+export function StatisticsCard({ color, icon, title, value, footer , role }) {
+
+  const userRole = useSelector((state)=>state.user.role)
   return (
-    <Card className="border border-blue-gray-100 shadow-sm">
+    <Card className={`border border-blue-gray-100 shadow-sm ${role?.includes(userRole )? '' : 'hidden'}`}>
       <CardHeader
         variant="gradient"
         color={color}

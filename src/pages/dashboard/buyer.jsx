@@ -167,6 +167,9 @@ export function Buyer() {
                         );
                       }
                       )}
+                    {tableData === undefined && <td colSpan={12}> <div className="flex items-center justify-center p-3">
+                      <p className="text-xl font-bold">Please add Buyer</p>
+                    </div></td>}
 
                     {tableData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
                   </tbody>

@@ -60,6 +60,10 @@ export const fetchSiteService = async () => {
 export const fetchUserWhoAmI = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}user/who-am-i`);
 };
+export const fetchDashboardData = async () => {
+    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}user/dashboard`);
+};
+
 
 
 
