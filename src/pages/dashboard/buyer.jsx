@@ -37,7 +37,6 @@ export function Buyer() {
 
   const handleDeleteBuyer = (id) => {
     DeleteIndividualBuyer(id).then((res) => {
-      // console.log(res)
       toast.success(res.data.message)
       fetchBuyer()
     }).catch((err) => console.log(err))
@@ -45,7 +44,6 @@ export function Buyer() {
 
   const fetchBuyer = () => {
     fetchBuyerService().then((res) => {
-      // console.log(res);
       dispatch(setTableData(res?.data.result))
     }).catch((err) => {
       console.log(err);

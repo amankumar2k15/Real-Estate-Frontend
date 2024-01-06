@@ -8,8 +8,6 @@ import { useLocation } from "react-router-dom";
 
 function IndividualProfile({ data }) {
     const { pathname } = useLocation()
-    console.log(pathname)
-    console.log("data inside individual component ", data)
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const dispatch = useDispatch()
@@ -48,7 +46,6 @@ function IndividualProfile({ data }) {
         { title: pathname === "/dashboard/seller" ? "Pan" : "Company Pan", img: pathname === "/dashboard/seller" ? data?.companyPan : pathname === "/dashboard/buyer" && data?.pan },
         { title: pathname === "/dashboard/seller" ? "COI" : "SOF", img: pathname === "/dashboard/seller" ? data?.certificate_of_incorporate : pathname === "/dashboard/buyer" && data?.source_of_fund },
     ]
-    console.log(imgData)
 
     return (
         <>

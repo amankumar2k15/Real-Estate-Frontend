@@ -38,7 +38,6 @@ export function Site() {
 
     const fetchSite = () => {
         fetchSiteService().then((res) => {
-            console.log(res);
             dispatch(setTableData(res?.data.result))
         }).catch((err) => {
             console.log(err);

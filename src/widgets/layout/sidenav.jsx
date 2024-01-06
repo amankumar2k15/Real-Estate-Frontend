@@ -18,7 +18,6 @@ export function Sidenav({ brandName, routes }) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
   const { role } = useSelector((state) => state.user)
-  console.log(role)
 
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
@@ -57,7 +56,7 @@ export function Sidenav({ brandName, routes }) {
         <Link to="/" className="py-6 px-8 text-center">
           <Typography
             variant="h6"
-            color={sidenavType === "dark" ? "white" : "blue-gray"}
+            color={sidenavType === "black" ? "white" : "blue-gray"}
           >
             <div className="absolute top-4 left-10 ">
               <img src="/img/logo.jpg" className="h-10 w-10" />
@@ -84,7 +83,7 @@ export function Sidenav({ brandName, routes }) {
               <li className="mx-3.5 mt-4 mb-2">
                 <Typography
                   variant="small"
-                  color={sidenavType === "dark" ? "white" : "blue-gray"}
+                  color={sidenavType === "black" ? "white" : "blue-gray"}
                   className="font-black uppercase opacity-75"
                 >
                   {"title"}
@@ -100,7 +99,7 @@ export function Sidenav({ brandName, routes }) {
                       color={
                         isActive
                           ? sidenavColor
-                          : sidenavType === "dark"
+                          : sidenavType === "black"
                             ? "white"
                             : "blue-gray"
                       }

@@ -8,30 +8,26 @@ export const fetchDashboardData = createAsyncThunk("data/fetchDashboardData", as
 const dashboardSlice = createSlice({
     name: "dashboard",
     initialState: {
-        sellerCount : 0,
-        buyerCount : 0,
-        siteCount : 0,
+        sellerCount: 0,
+        buyerCount: 0,
+        siteCount: 0,
         data: [],
         tableData: [],
     },
     reducers: {
         setTableData: (state, action) => {
-            // console.log("action ==================", action);
             state.tableData = action.payload
         },
         setSellerCount: (state, action) => {
-            // console.log("action ==================", action);
             state.sellerCount = action.payload
         },
         setBuyerCount: (state, action) => {
-            // console.log("action ==================", action);
             state.buyerCount = action.payload
         },
         setSiteCount: (state, action) => {
-            // console.log("action ==================", action);
             state.siteCount = action.payload
         },
-        
+
     },
     extraReducers: (builder) => {
         builder
@@ -51,5 +47,5 @@ const dashboardSlice = createSlice({
 
 
 
-export const { setTableData  , setSiteCount , setSellerCount , setBuyerCount } = dashboardSlice.actions
+export const { setTableData, setSiteCount, setSellerCount, setBuyerCount } = dashboardSlice.actions
 export default dashboardSlice.reducer

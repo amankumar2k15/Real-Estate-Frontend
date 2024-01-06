@@ -68,7 +68,6 @@ export function ForgetPassword() {
             return toast.warning("Password is missing")
         }
         else {
-            console.log(initialData)
             ResetPassword(initialData).then((res) => {
                 setLoading(false)
                 toast.success("Password Updatd successfully")
@@ -132,7 +131,7 @@ export function ForgetPassword() {
                                             size="lg"
                                             disabled
                                             placeholder="name@mail.com"
-                                            value={initialData.email}
+                                            value={initialData.email || ""}
                                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                                             labelProps={{
                                                 className: "before:content-none after:content-none",

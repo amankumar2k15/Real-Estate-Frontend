@@ -40,7 +40,6 @@ export function Dashboard() {
         dispatchh(setSellerCount(res?.data?.results?.sellerCount))
         dispatchh(setBuyerCount(res?.data?.results?.buyerCount))
         dispatchh(setSiteCount(res?.data?.results?.siteCount))
-        console.log(res , "res from dashboard API +++++++++++++++++++++++++++++");
       }).catch((err) => {
         console.log(err);
       })
@@ -67,7 +66,7 @@ export function Dashboard() {
       <Sidenav
         routes={routes}
         brandImg={
-          sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
+          sidenavType === "black" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         }
       />
       <div className="p-4 xl:ml-80">

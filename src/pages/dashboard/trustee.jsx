@@ -20,19 +20,19 @@ export function Trustee() {
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <div className="flex w-full justify-end pb-0">
-      <Button
+        <Button
           variant={true ? "text" : "text"}
-          onClick={showForm} 
-         color="blue-grey"
+          onClick={showForm}
+          color="blue-grey"
           className="text-blueGray-500 outline  border border-black border-blueGray-500 hover:text-white   text-black  font-bold uppercase text-xs px-4 py-2 rounded  focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-black "
-          
+
         >
           Add Trustee
         </Button>
 
       </div>
       <Card>
-      
+
         <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
@@ -123,7 +123,9 @@ export function Trustee() {
       {true && (
         <>
           <div className="p-4 xl:ml-80">
-            <Modal title="Add Trustee" closeForm={closeForm} isFormVisible={isFormVisible} />
+            <Modal title="Add Trustee" closeForm={closeForm} isFormVisible={isFormVisible} >
+              <div>Bharat Escrow</div>
+            </Modal>
           </div>
         </>
       )}

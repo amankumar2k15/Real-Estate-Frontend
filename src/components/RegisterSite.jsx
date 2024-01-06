@@ -25,7 +25,6 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)
-        console.log(formData)
 
         try {
             const formDataToSend = new FormData();
@@ -41,7 +40,6 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
                 closeForm()
                 setLoading(false)
                 toast.success("Site created successfully")
-                console.log('Site created successfully:', response.data);
             }
         } catch (error) {
             setLoading(false)
@@ -139,7 +137,7 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
                             id="site_name"
                             type="text"
                             placeholder="Site Name"
-                            value={formData.site_name}
+                            value={formData?.site_name || ""}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -156,7 +154,7 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
                             id="site_location"
                             type="email"
                             placeholder="Site Location"
-                            value={formData?.site_location}
+                            value={formData?.site_location || ""}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -176,7 +174,7 @@ const RegisterSite = ({ fetchSite, closeForm }) => {
                             id="site_description"
                             type="text"
                             placeholder="Site Description"
-                            value={formData.site_description}
+                            value={formData?.site_description || ""}
                             onChange={handleInputChange}
                         />
                     </div>

@@ -6,9 +6,7 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 function IndividualSite({ data }) {
-    console.log("sma", data)
     const { pathname } = useLocation()
-    console.log("data inside individual component ", data)
     const dispatch = useDispatch()
 
 

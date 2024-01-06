@@ -10,11 +10,9 @@ const headerSlice = createSlice({
     },
     reducers: {
         setHeaderDetails: (state, action) => {
-            // console.log(action.payload, "reaching inside store");
             state = action.payload;
         },
         setSearch: (state, action) => {
-            // console.log(action.payload, "reaching inside store");
             state.search = action.payload;
         }
     }

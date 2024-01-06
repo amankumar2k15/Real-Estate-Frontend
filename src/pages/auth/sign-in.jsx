@@ -21,7 +21,6 @@ export function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true)
-    console.log(formData)
     if (!formData.email) {
       setLoading(false)
       return toast.warning("Email is missing")
@@ -37,7 +36,6 @@ export function SignIn() {
         dispatch(setUserRole(res?.data?.results?.role))
         dispatch(setUserName(res?.data?.results?.username))
         setRole(res?.data?.results?.role)
-        // console.log(res)
         toast.success(`${(res.data.results.role).toUpperCase()} logged in successfully`)
       }).catch((err) => {
         setLoading(false)

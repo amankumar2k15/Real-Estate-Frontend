@@ -39,21 +39,21 @@ const handleDeleteInput = (index) => {
 
 
 
-                    <div className='flex flex-col gap-2'>
-                        {inputFields.map((input, index) => (
-                            <div key={index}>
-                                <input
-                                    type="text"
-                                    placeholder="Enter text"
-                                    value={input.text}
-                                    onChange={(e) => handleTextChange(index, e.target.value)}
-                                />
-                                <input className='outline-none'
-                                    type="file"
-                                    onChange={(e) => handleFileChange(index, e.target.files[0])}
-                                />
-                                <button className='py-2 px-4 rounded-lg hover:bg-red-400 bg-red-600 text-white' onClick={() => handleDeleteInput(index)}>Delete</button>
-                            </div>
-                        ))}
-                        <button className='py-2 px-4 rounded-lg w-20 hover:bg-green-400 bg-green-600 text-white' onClick={handleAddInput}>Add</button>
-                    </div>
+<div className='flex flex-col gap-2'>
+    {inputFields.map((input, index) => (
+        <div key={index}>
+            <input
+                type="text"
+                placeholder="Enter text"
+                value={input.text || ""}
+                onChange={(e) => handleTextChange(index, e.target.value)}
+            />
+            <input className='outline-none'
+                type="file"
+                onChange={(e) => handleFileChange(index, e.target.files[0])}
+            />
+            <button className='py-2 px-4 rounded-lg hover:bg-red-400 bg-red-600 text-white' onClick={() => handleDeleteInput(index)}>Delete</button>
+        </div>
+    ))}
+    <button className='py-2 px-4 rounded-lg w-20 hover:bg-green-400 bg-green-600 text-white' onClick={handleAddInput}>Add</button>
+</div>

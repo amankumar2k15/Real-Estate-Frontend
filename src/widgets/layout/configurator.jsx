@@ -47,7 +47,7 @@ export function Configurator() {
 
   const sidenavColors = {
     white: "from-gray-100 to-gray-100 border-gray-200",
-    dark: "from-black to-black border-gray-200",
+    black: "from-black to-black border-gray-200",
     green: "from-green-400 to-green-600",
     orange: "from-orange-400 to-orange-600",
     red: "from-red-400 to-red-600",
@@ -58,9 +58,8 @@ export function Configurator() {
 
   return (
     <aside
-      className={`fixed top-0 right-0 z-50 h-screen w-96 bg-white px-2.5 shadow-lg transition-transform duration-300 ${
-        openConfigurator ? "translate-x-0" : "translate-x-96"
-      }`}
+      className={`fixed top-0 right-0 z-50 h-screen w-96 bg-white px-2.5 shadow-lg transition-transform duration-300 ${openConfigurator ? "translate-x-0" : "translate-x-96"
+        }`}
     >
       <div className="flex items-start justify-between px-6 pt-8 pb-6">
         <div>
@@ -88,11 +87,9 @@ export function Configurator() {
             {Object.keys(sidenavColors).map((color) => (
               <span
                 key={color}
-                className={`h-6 w-6 cursor-pointer rounded-full border bg-gradient-to-br transition-transform hover:scale-105 ${
-                  sidenavColors[color]
-                } ${
-                  sidenavColor === color ? "border-black" : "border-transparent"
-                }`}
+                className={`h-6 w-6 cursor-pointer rounded-full border bg-gradient-to-br transition-transform hover:scale-105 ${sidenavColors[color]
+                  } ${sidenavColor === color ? "border-black" : "border-transparent"
+                  }`}
                 onClick={() => setSidenavColor(dispatch, color)}
               />
             ))}
@@ -107,10 +104,10 @@ export function Configurator() {
           </Typography>
           <div className="mt-3 flex items-center gap-2">
             <Button
-              variant={sidenavType === "dark" ? "gradient" : "outlined"}
-              onClick={() => setSidenavType(dispatch, "dark")}
+              variant={sidenavType === "black" ? "gradient" : "outlined"}
+              onClick={() => setSidenavType(dispatch, "black")}
             >
-              Dark
+              Black
             </Button>
             <Button
               variant={sidenavType === "transparent" ? "gradient" : "outlined"}
@@ -139,10 +136,10 @@ export function Configurator() {
             />
           </div>
           <hr />
-         
-        
+
+
         </div>
-        
+
       </div>
     </aside>
   );

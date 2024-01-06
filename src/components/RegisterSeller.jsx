@@ -42,7 +42,6 @@ const RegisterSeller = ({ fetchSeller, closeForm }) => {
         try {
             let res = await RegisterSellerService(formData)
             if (res) {
-                console.log(res)
                 // navigate("/dashboard/home")
                 fetchSeller()
                 closeForm()
