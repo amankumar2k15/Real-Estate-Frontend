@@ -14,6 +14,7 @@ import { setIndividualOpen } from "@/store/slice/sellerSlice";
 import RegisterSeller from "@/components/RegisterSeller";
 import Pagination from "@/components/Pagination";
 import { toast } from "react-toastify";
+import { useFetchSellersQuery } from "@/store/api/sellerApi";
 
 export function Seller() {
   const { pathname } = useLocation();
@@ -23,6 +24,14 @@ export function Seller() {
   const { search } = useSelector((state) => state.header)
   const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const { data: fetchData, error, loading } = useFetchSellersQuery();
+
+  useEffect(() => {
+    if (fetchData) {
+      console.log(fetchData);
+    }
+  }, [fetchData]);
+
   useEffect(() => {
     dispatch(setHeaderDetails(pathname))
   }, [])
