@@ -14,7 +14,8 @@ import { setIndividualOpen } from "@/store/slice/sellerSlice";
 import RegisterSeller from "@/components/RegisterSeller";
 import Pagination from "@/components/Pagination";
 import { toast } from "react-toastify";
-import { useFetchSellersQuery } from "@/store/api/sellerApi";
+import { useDeleteSellerMutation, useFetchSellersQuery } from "@/feature/api/sellerApi";
+import { SyncLoader } from "react-spinners";
 
 export function Seller() {
   const { pathname } = useLocation();
@@ -24,13 +25,19 @@ export function Seller() {
   const { search } = useSelector((state) => state.header)
   const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const { data: fetchData, error, loading } = useFetchSellersQuery();
 
-  useEffect(() => {
-    if (fetchData) {
-      console.log(fetchData);
-    }
-  }, [fetchData]);
+  // RTK Query 
+  const { data: sellerData, isError, isLoading, isSuccess } = useFetchSellersQuery();
+  // console.log("sellerData====> ", sellerData)
+  const [deleteSeller] = useDeleteSellerMutation()
+
+  // console.log("deleteSeller===>", deleteSeller)
+  // console.log("fetchData", sellerData)
+  // console.log("isError", isError)
+  // console.log("isLoading", isLoading)
+  // console.log("isSuccess", isSuccess)
+
+
 
   useEffect(() => {
     dispatch(setHeaderDetails(pathname))
@@ -53,16 +60,16 @@ export function Seller() {
     })
   }
 
-  const handleDeleteSeller = (id) => {
-    DeleteIndividualSeller(id).then((res) => {
-      toast.success(res.data.message)
-      fetchSeller()
-    }).catch((err) => console.log(err))
-  }
+  // const handleDeleteSeller = (id) => {
+  //   DeleteIndividualSeller(id).then((res) => {
+  //     toast.success(res.data.message)
+  //     // fetchSeller()
+  //   }).catch((err) => console.log(err))
+  // }
 
-  useEffect(() => {
-    fetchSeller()
-  }, [])
+  // useEffect(() => {
+  //   fetchSeller()
+  // }, [])
 
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -103,84 +110,106 @@ export function Seller() {
                   </thead>
                   <tbody>
 
-                    {tableData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase()))
-                      .map((seller, key) => {
-                        const className = `py-3 px-5 ${key === authorsTableData.length - 1
-                          ? ""
-                          : "border-b border-blue-gray-50"
-                          }`;
+                    {isLoading &&
+                      <tr>
+                        <td colSpan={9} className="">
+                          <SyncLoader size={10} color="#000" />
+                        </td>
+                      </tr>
+                    }
 
-                        return (
-                          <tr key={seller?.fullName}>
-                            <td className={className}
-                              onClick={(e) => { dispatch(setIndividualOpen(true)), setIndividualData({ isOpen: true, data: seller }) }}>
-                              <Typography className="text-xs capitalize font-semibold cursor-pointer hover:text-blue-gray-800 hover:underline text-blue-gray-600">
-                                {seller?.fullName}
-                              </Typography>
-                            </td>
+                    {isError && <div>Something went wrong</div>}
+
+                    {isSuccess &&
+                      sellerData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase()))
+                        .map((seller, key) => {
+                          const className = `py-3 px-5 ${key === authorsTableData.length - 1
+                            ? ""
+                            : "border-b border-blue-gray-50"
+                            }`
+
+                          return (
+                            <tr key={seller?.fullName}>
+                              <td className={className}
+                                onClick={(e) => { dispatch(setIndividualOpen(true)), setIndividualData({ isOpen: true, data: seller }) }}>
+                                <Typography className="text-xs capitalize font-semibold cursor-pointer hover:text-blue-gray-800 hover:underline text-blue-gray-600">
+                                  {seller?.fullName}
+                                </Typography>
+                              </td>
 
 
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller?.email}
-                              </Typography>
-                            </td>
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller?.phone}
-                              </Typography>
-                            </td>
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller?.companyName}
-                              </Typography>
-                            </td>
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller?.location}
-                              </Typography>
-                            </td>
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller?.state}
-                              </Typography>
-                            </td>
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller?.city}
-                              </Typography>
-                            </td>
-                            <td className={className}>
-                              <Typography className="text-xs font-semibold text-blue-gray-600">
-                                {seller?.isApproved ? "Yes" : "No"}
-                              </Typography>
-                            </td>
-                            <td className={`py-3 px-5 ${key === authorsTableData.length - 1
-                              ? ""
-                              : " border-b border-blue-gray-50  "
-                              }`}>
-                              <Typography
-                                as="a"
-                                href="#"
-                                className="text-xs hover:text-green-200 px-2 font-semibold text-green-600"
-                              >
-                                Edit
-                              </Typography>
-                              <Typography
-                                as="a"
-                                href="#"
-                                className="text-xs hover:text-red-200 px-2 font-semibold text-red-600"
-                                onClick={() => handleDeleteSeller(seller._id)}
-                              >
-                                Delete
-                              </Typography>
-                            </td>
-                          </tr>
-                        );
-                      }
-                      )}
+                              <td className={className}>
+                                <Typography className="text-xs font-semibold text-blue-gray-600">
+                                  {seller?.email}
+                                </Typography>
+                              </td>
+                              <td className={className}>
+                                <Typography className="text-xs font-semibold text-blue-gray-600">
+                                  {seller?.phone}
+                                </Typography>
+                              </td>
+                              <td className={className}>
+                                <Typography className="text-xs font-semibold text-blue-gray-600">
+                                  {seller?.companyName}
+                                </Typography>
+                              </td>
+                              <td className={className}>
+                                <Typography className="text-xs font-semibold text-blue-gray-600">
+                                  {seller?.location}
+                                </Typography>
+                              </td>
+                              <td className={className}>
+                                <Typography className="text-xs font-semibold text-blue-gray-600">
+                                  {seller?.state}
+                                </Typography>
+                              </td>
+                              <td className={className}>
+                                <Typography className="text-xs font-semibold text-blue-gray-600">
+                                  {seller?.city}
+                                </Typography>
+                              </td>
+                              <td className={className}>
+                                <Typography className="text-xs font-semibold text-blue-gray-600">
+                                  {seller?.isApproved ? "Yes" : "No"}
+                                </Typography>
+                              </td>
+                              <td className={`py-3 px-5 ${key === authorsTableData.length - 1
+                                ? ""
+                                : " border-b border-blue-gray-50  "
+                                }`}>
+                                <Typography
+                                  as="a"
+                                  href="#"
+                                  className="text-xs hover:text-green-200 px-2 font-semibold text-green-600"
+                                >
+                                  Edit
+                                </Typography>
+                                <Typography
+                                  as="a"
+                                  href="#"
+                                  className="text-xs hover:text-red-200 px-2 font-semibold text-red-600"
+                                  onClick={() => deleteSeller(seller._id)}
+                                // onClick={() => handleDeleteSeller(seller._id)}
+                                >
+                                  Delete
+                                </Typography>
+                              </td>
+                            </tr>
+                          );
+                        }
+                        )}
 
-                    {tableData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0
+                    {sellerData === undefined &&
+                      <tr>
+                        <td colSpan={12}>
+                          <div className="flex items-center justify-center p-3">
+                            <p className="text-xl font-bold">Please add Seller</p>
+                          </div>
+                        </td>
+                      </tr>
+                    }
+
+                    {sellerData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0
                       &&
                       (
                         <tr>

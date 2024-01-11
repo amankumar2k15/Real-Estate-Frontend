@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { RegisterBuyerService } from '@/services/api.service';
 import { SyncLoader } from "react-spinners";
+import { useAddBuyerMutation } from '@/feature/api/buyerApi';
 
 const RegisterBuyer = ({ fetchBuyer, closeForm }) => {
     const [isLoading, setLoading] = useState(false)
     const dispatch = useDispatch();
     const { data } = useSelector((state) => state.buyer)
+    const [addBuyer] = useAddBuyerMutation()
 
     const handleInput = (key, value) => {
         dispatch(setFormValue({ type: "fill", data: { key, value } }));
@@ -37,9 +39,9 @@ const RegisterBuyer = ({ fetchBuyer, closeForm }) => {
         //FormData---------------------------------------->
 
         try {
-            let res = await RegisterBuyerService(formData)
+            let res = await addBuyer(formData)
             if (res) {
-                fetchBuyer()
+                // fetchBuyer()
                 closeForm()
                 dispatch(setFormValue({
                     type: "empty", data: {

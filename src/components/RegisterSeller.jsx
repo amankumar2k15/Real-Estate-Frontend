@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { RegisterSellerService } from '@/services/api.service';
 import { SyncLoader } from "react-spinners";
+import { useAddSellerMutation } from '@/feature/api/sellerApi';
 
 const RegisterSeller = ({ fetchSeller, closeForm }) => {
     const [isLoading, setLoading] = useState(false)
     const dispatch = useDispatch();
     const { data } = useSelector((state) => state.seller)
+    const [addSeller] = useAddSellerMutation()
 
     const handleInput = (key, value) => {
         dispatch(setFormValue({ type: "fill", data: { key, value } }));
-
     };
 
     const handleFileInput = (selectedKey, selectedFile) => {
@@ -36,14 +37,14 @@ const RegisterSeller = ({ fetchSeller, closeForm }) => {
             formData.append(key, data[key]);
         });
 
-
         //FormData---------------------------------------->
 
         try {
-            let res = await RegisterSellerService(formData)
+            // let res = await RegisterSellerService(formData)
+            let res = await addSeller(formData)
             if (res) {
                 // navigate("/dashboard/home")
-                fetchSeller()
+                // fetchSeller()
                 closeForm()
                 dispatch(setFormValue({
                     type: "empty", data: {

@@ -22,9 +22,13 @@ const sellerSlice = createSlice({
             blankCheque: null,
             certificate_of_incorporate: null,
         },
-        isIndividualOpen: false
+        isIndividualOpen: false,
+        sellerData: [],
     },
     reducers: {
+        setSellerData: (state, action) => {
+            state.sellerData = action.payload
+        },
         setFormValue: (state, action) => {
             if (action.payload.type === "fill") {
                 const { key, value } = action.payload.data
@@ -49,7 +53,6 @@ const sellerSlice = createSlice({
                 state.data = []
             })
     }
-
 })
 
 

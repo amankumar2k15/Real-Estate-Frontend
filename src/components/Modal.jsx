@@ -30,7 +30,7 @@ const Modal = ({ title, closeForm, isFormVisible, children }) => {
 
                         </Typography>
                         <Typography className="font-normal text-blue-gray-600">
-                            ""
+                            {" "}
                         </Typography>
                     </div>
                     <IconButton

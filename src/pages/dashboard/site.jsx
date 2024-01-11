@@ -14,15 +14,18 @@ import RegisterSite from "@/components/RegisterSite";
 import { fetchSiteService } from "@/services/api.service";
 import IndividualSite from "@/components/individualSite";
 import NoData from "@/components/NoData";
+import { useFetchSitesQuery } from "@/feature/api/siteApi";
+import { SyncLoader } from "react-spinners";
 
 export function Site() {
     const { pathname } = useLocation();
     const dispatch = useDispatch()
-    const { tableData } = useSelector((state) => state.dashboard);
+    // const { tableData } = useSelector((state) => state.dashboard);
     const { isIndividualOpen } = useSelector((state) => state.site);
     const { search } = useSelector((state) => state.header)
     const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
     const [isFormVisible, setIsFormVisible] = useState(false);
+    const { data: siteData, isError, isLoading, isSuccess } = useFetchSitesQuery()
 
     useEffect(() => {
         dispatch(setHeaderDetails(pathname))
@@ -78,57 +81,81 @@ export function Site() {
                                         Architects design sites
                                     </Typography>
                                     <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
-                                        {tableData?.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase()))
-                                            .map((site, index) => (
-                                                <Card key={index} color="transparent" shadow={false}>
-                                                    <CardHeader
-                                                        floated={false}
-                                                        color="gray"
-                                                        className="mx-0 mt-0 mb-4 h-64 xl:h-40"
-                                                    >
-                                                        <img
-                                                            src={site.site_image}
-                                                            alt={site.site_name}
-                                                            className="h-full w-full object-cover"
-                                                        />
-                                                    </CardHeader>
-                                                    <CardBody className="py-0 px-1">
-                                                        <Typography
-                                                            variant="small"
-                                                            className="font-normal text-blue-gray-500"
-                                                        >
-                                                            {`Site ${index + 1}`}
-                                                        </Typography>
-                                                        <Typography
-                                                            variant="h5"
-                                                            color="blue-gray"
-                                                            className="mt-1 mb-2"
-                                                        >
-                                                            {site.site_name}
-                                                        </Typography>
-                                                        <Typography
-                                                            variant="small"
-                                                            className="font-normal text-blue-gray-500"
-                                                        >
-                                                            {site.site_description.length > 25 ? `${site.site_description.slice(0, 25)}...` : site.site_description}
 
-                                                        </Typography>
-                                                    </CardBody>
-                                                    <CardFooter className="mt-6 flex items-center justify-between py-0 px-1">
-                                                        <Button variant="outlined" size="sm"
-                                                            onClick={(e) => { dispatch(setIndividualOpen(true)), setIndividualData({ isOpen: true, data: site }) }}
+
+                                        {isLoading &&
+                                            <tr>
+                                                <td colSpan={9} className="">
+                                                    <SyncLoader size={10} color="#000" />
+                                                </td>
+                                            </tr>
+                                        }
+
+                                        {isError && <div>Something went wrong</div>}
+
+                                        {isSuccess &&
+                                            siteData?.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase()))
+                                                .map((site, index) => (
+                                                    <Card key={index} color="transparent" shadow={false}>
+                                                        <CardHeader
+                                                            floated={false}
+                                                            color="gray"
+                                                            className="mx-0 mt-0 mb-4 h-64 xl:h-40"
                                                         >
-                                                            view Site
-                                                        </Button>
-                                                    </CardFooter>
-                                                </Card>
-                                            )
-                                            )}
+                                                            <img
+                                                                src={site.site_image}
+                                                                alt={site.site_name}
+                                                                className="h-full w-full object-cover"
+                                                            />
+                                                        </CardHeader>
+                                                        
+                                                        <CardBody className="py-0 px-1">
+                                                            <Typography
+                                                                variant="small"
+                                                                className="font-normal text-blue-gray-500"
+                                                            >
+                                                                {`Site ${index + 1}`}
+                                                            </Typography>
+                                                            <Typography
+                                                                variant="h5"
+                                                                color="blue-gray"
+                                                                className="mt-1 mb-2"
+                                                            >
+                                                                {site.site_name}
+                                                            </Typography>
+                                                            <Typography
+                                                                variant="small"
+                                                                className="font-normal text-blue-gray-500"
+                                                            >
+                                                                {site.site_description.length > 25 ? `${site.site_description.slice(0, 25)}...` : site.site_description}
+
+                                                            </Typography>
+                                                        </CardBody>
+                                                        <CardFooter className="mt-6 flex items-center justify-between py-0 px-1">
+                                                            <Button variant="outlined" size="sm"
+                                                                onClick={(e) => { dispatch(setIndividualOpen(true)), setIndividualData({ isOpen: true, data: site }) }}
+                                                            >
+                                                                view Site
+                                                            </Button>
+                                                        </CardFooter>
+                                                    </Card>
+                                                )
+                                                )}
                                     </div>
 
 
                                 </div>
-                                {tableData?.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
+                                {siteData === undefined &&
+                                    <tr>
+                                        <td colSpan={12}>
+                                            <div className="flex items-center justify-center p-3">
+                                                <p className="text-xl font-bold">Please add Buyer</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                                {siteData?.filter((item) => item?.site_name?.toLowerCase().includes(search.toLowerCase())).length === 0 && <td colSpan={12}><NoData /></td>}
 
                             </CardBody>
                         </Card>
