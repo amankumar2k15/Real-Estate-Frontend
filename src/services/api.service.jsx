@@ -54,7 +54,7 @@ export const fetchBuyerService = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}buyer/list-buyer`);
 };
 export const fetchSiteService = async () => {
-    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}site/list-site`);
+    return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}`);
 };
 
 export const fetchUserWhoAmI = async () => {

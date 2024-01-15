@@ -5,9 +5,9 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slice/userSlice";
 import headerReduce from "./slice/headerSlice";
 import siteReducer from "./slice/siteSlice";
-import { sellerApi } from "@/feature/api/sellerApi";
 import { buyerApi } from "@/feature/api/buyerApi";
 import { siteApi } from "@/feature/api/siteApi";
+import { sellerApi } from "@/feature/api/sellerApi";
 
 
 
@@ -26,13 +26,10 @@ const rootReducer = combineReducers({
 
 const store = configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware =>
-        // getDefaultMiddleware({
-        //     serializableCheck: false,
-        // }),
-        getDefaultMiddleware().concat(sellerApi.middleware, buyerApi.middleware, siteApi.middleware)
-
-})
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: true,
+    }).concat(sellerApi.middleware, buyerApi.middleware, siteApi.middleware),
+});
 
 export default store
 

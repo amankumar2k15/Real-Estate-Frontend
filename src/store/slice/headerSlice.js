@@ -6,7 +6,7 @@ const headerSlice = createSlice({
     initialState: {
         tab: null,
         url: "/dashboard/home",
-        search: null
+        search: ""
     },
     reducers: {
         setHeaderDetails: (state, action) => {

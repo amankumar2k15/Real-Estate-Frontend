@@ -2,7 +2,7 @@ import { getToken } from "@/helper/tokenHelper";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const sellerApi = createApi({
-    reducerPath: "api",
+    reducerPath: "sellerApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:4400/api/v1/",
         prepareHeaders: (headers, { getState }) => {
@@ -12,16 +12,16 @@ export const sellerApi = createApi({
             return headers;
         },
     }),
-    tagTypes: ["seller"],
+    tagTypes: ["Seller"],
 
     endpoints: (builder) => ({
         fetchSellers: builder.query({
             query: () => "seller/list-seller",
-            providesTags: ["seller"],
-            transformResponse: (res) => {
-                console.log("inside seller api ", res)
-                return res.result
-            }
+            providesTags: ["Seller"],
+            transformResponse: (response) => {
+                return response.result
+            },
+            // merge: (existingData, newData) => [...e xistingData, ...newData],
         }),
 
         addSeller: builder.mutation({
@@ -30,7 +30,7 @@ export const sellerApi = createApi({
                 method: "POST",
                 body: seller
             }),
-            invalidatesTags: ["seller"]
+            invalidatesTags: ["Seller"]
         }),
 
         deleteSeller: builder.mutation({
@@ -38,7 +38,7 @@ export const sellerApi = createApi({
                 url: `seller/delete-seller/${id}`,
                 method: "DELETE",
             }),
-            invalidatesTags: ["seller"]
+            invalidatesTags: ["Seller"]
         }),
 
 

@@ -2,7 +2,7 @@ import { getToken } from "@/helper/tokenHelper";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const buyerApi = createApi({
-    reducerPath: "api",
+    reducerPath: "buyerApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:4400/api/v1/",
         prepareHeaders: (headers, { getState }) => {

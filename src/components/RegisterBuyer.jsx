@@ -67,7 +67,7 @@ const RegisterBuyer = ({ fetchBuyer, closeForm }) => {
                 clearFileInput('pan');
                 clearFileInput('source_of_fund');
 
-                toast.success(`${res.data.result.fullName} registered successfully`)
+                toast.success(`${res?.data?.result?.fullName} registered successfully`)
             }
         } catch (err) {
             toast.success(err.response.data.message)

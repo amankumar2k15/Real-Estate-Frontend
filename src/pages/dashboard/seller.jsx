@@ -20,6 +20,7 @@ import { SyncLoader } from "react-spinners";
 export function Seller() {
   const { pathname } = useLocation();
   const dispatch = useDispatch()
+  const [sellerData, setSellerData] = useState([])
   const { tableData } = useSelector((state) => state.dashboard);
   const { isIndividualOpen } = useSelector((state) => state.seller);
   const { search } = useSelector((state) => state.header)
@@ -27,16 +28,17 @@ export function Seller() {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   // RTK Query 
-  const { data: sellerData, isError, isLoading, isSuccess } = useFetchSellersQuery();
-  // console.log("sellerData====> ", sellerData)
+  const { data: fetchedSellerData, isError, isLoading, isSuccess } = useFetchSellersQuery();
   const [deleteSeller] = useDeleteSellerMutation()
 
-  // console.log("deleteSeller===>", deleteSeller)
-  // console.log("fetchData", sellerData)
-  // console.log("isError", isError)
-  // console.log("isLoading", isLoading)
-  // console.log("isSuccess", isSuccess)
+  useEffect(() => {
+    console.log("inside effect");
+    if (isSuccess) {
+      setSellerData(fetchedSellerData)
+    }
+  }, [fetchedSellerData, isSuccess])
 
+  console.log("sellerData====> ", sellerData)
 
 
   useEffect(() => {
@@ -108,20 +110,23 @@ export function Seller() {
                       ))}
                     </tr>
                   </thead>
+
                   <tbody>
 
                     {isLoading &&
-                      <tr>
+                      <tr >
                         <td colSpan={9} className="">
-                          <SyncLoader size={10} color="#000" />
+                          <div className="flex items-center justify-center p-3">
+                            <SyncLoader size={10} color="#000" />
+                          </div>
                         </td>
                       </tr>
                     }
 
                     {isError && <div>Something went wrong</div>}
-
+                    {console.log("Shashank SHarma i here", sellerData)}
                     {isSuccess &&
-                      sellerData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase()))
+                      sellerData?.filter((item) => item?.fullName?.toLowerCase().includes(search?.toLowerCase()))
                         .map((seller, key) => {
                           const className = `py-3 px-5 ${key === authorsTableData.length - 1
                             ? ""
@@ -209,7 +214,7 @@ export function Seller() {
                       </tr>
                     }
 
-                    {sellerData?.filter((item) => item?.fullName?.toLowerCase().includes(search.toLowerCase())).length === 0
+                    {sellerData?.filter((item) => item?.fullName?.toLowerCase().includes(search?.toLowerCase())).length === 0
                       &&
                       (
                         <tr>

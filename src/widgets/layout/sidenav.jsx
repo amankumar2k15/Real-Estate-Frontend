@@ -25,7 +25,7 @@ export function Sidenav({ brandName, routes }) {
     transparent: "bg-transparent",
   };
 
-
+console.log(role , "role");
   const handleIndividualOpen = () => {
     pathname === "/dashboard/buyer" ? dispatchh(setBuyerIndividual(false))
       :

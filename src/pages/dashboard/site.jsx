@@ -26,6 +26,7 @@ export function Site() {
     const [isIndividual, setIndividualData] = useState({ isOpen: false, userId: null })
     const [isFormVisible, setIsFormVisible] = useState(false);
     const { data: siteData, isError, isLoading, isSuccess } = useFetchSitesQuery()
+    console.log("siteDta ", siteData)
 
     useEffect(() => {
         dispatch(setHeaderDetails(pathname))
@@ -108,7 +109,7 @@ export function Site() {
                                                                 className="h-full w-full object-cover"
                                                             />
                                                         </CardHeader>
-                                                        
+
                                                         <CardBody className="py-0 px-1">
                                                             <Typography
                                                                 variant="small"
