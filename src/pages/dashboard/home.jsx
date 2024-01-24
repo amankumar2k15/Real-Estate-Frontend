@@ -3,7 +3,7 @@ import { Typography, Card, CardHeader, CardBody, IconButton, Menu, MenuHandler, 
 import { EllipsisVerticalIcon, ArrowUpIcon, } from "@heroicons/react/24/outline";
 import { StatisticsCard } from "@/widgets/cards";
 import { StatisticsChart } from "@/widgets/charts";
-import {  statisticsCardsData , statisticsChartsData, projectsTableData, ordersOverviewData, } from "@/data";
+import { statisticsCardsData, statisticsChartsData, projectsTableData, ordersOverviewData, } from "@/data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "@/store/slice/headerSlice";
@@ -15,69 +15,68 @@ import {
 } from "@heroicons/react/24/solid";
 
 
-
-
 export function Home() {
-  const [cardData , setCardData] = useState(statisticsCardsData)
+  const [cardData, setCardData] = useState(statisticsCardsData)
   const dispatch = useDispatch();
-  const {sellerCount , buyerCount , siteCount} = useSelector((state)=>state.dashboard)
-  const {role} = useSelector((state)=>state.user)
+  const { sellerCount, buyerCount, siteCount } = useSelector((state) => state.dashboard)
+  const { role } = useSelector((state) => state.user)
 
 
-useEffect(()=>{
-  const statisticsCardsData = [
-    {
-      color: "gray",
-      role : ["super-admin"],
-      icon: BanknotesIcon,
-      title: "Sellers",
-      value: `Total ${sellerCount}`,
-      footer: {
-        color: "text-green-500",
-        value: "+55%",
-        label: "than last week",
+  useEffect(() => {
+    const statisticsCardsData = [
+      {
+        color: "gray",
+        role: ["super-admin"],
+        icon: BanknotesIcon,
+        title: "Sellers",
+        value: `Total ${sellerCount}`,
+        footer: {
+          color: "text-green-500",
+          // value: "+55%",
+
+          label: "buyers",
+        },
       },
-    },
-    {
-      color: "gray",
-      icon: UsersIcon,
-      title: "Buyers",
-      role : ["super-admin" , "seller"],
-      value: `Total ${buyerCount}`,
-      footer: {
-        color: "text-green-500",
-        value: "+3%",
-        label: "than last month",
+      // {
+      //   color: "gray",
+      //   icon: UsersIcon,
+      //   title: "Buyers",
+      //   role : ["super-admin" , "seller"],
+      //   value: `Total ${buyerCount}`,
+      //   footer: {
+      //     color: "text-green-500",
+      //     value: "+3%",
+      //     label: "than last month",
+      //   },
+      // },
+      ,
+      {
+        color: "gray",
+        icon: UsersIcon,
+        title: "Site",
+        role: ["super-admin", "seller"],
+        value: `Total ${siteCount}`,
+        footer: {
+          color: "text-green-500",
+          value: "+3%",
+          label: "than last month",
+        },
       },
-    },
-    ,
-    {
-      color: "gray",
-      icon: UsersIcon,
-      title: "Site",
-      role : ["super-admin" , "seller"],
-      value: `Total ${siteCount}`,
-      footer: {
-        color: "text-green-500",
-        value: "+3%",
-        label: "than last month",
-      },
-    },
-    {
-      color: "gray",
-      icon: UserPlusIcon,
-      title: "Escrow Acount",
-      role : ["super-admin"],
-      value: "10978888",
-      footer: {
-        color: "text-green-500",
-        value: "+2%",
-        label: "than yesterday",
-      },
-    }
-  ];
-  setCardData(statisticsCardsData)
-},[sellerCount])
+      {
+        color: "gray",
+        icon: UserPlusIcon,
+        title: "Escrow Acount",
+        role: ["super-admin"],
+        value: "10978888",
+        footer: {
+          color: "text-green-500",
+          value: "+2%",
+          label: "than yesterday",
+        },
+      }
+    ];
+    setCardData(statisticsCardsData)
+  }, [sellerCount])
 
   useEffect(() => {
     dispatch(setSearch(" "))
@@ -86,9 +85,9 @@ useEffect(()=>{
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
-        {cardData.map(({ icon, title, footer, role , ...rest }) => (
+        {cardData.map(({ icon, title, footer, role, ...rest }) => (
           <StatisticsCard
-          role={role}
+            role={role}
             key={title}
             {...rest}
             title={title}
