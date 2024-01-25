@@ -49,7 +49,6 @@ export function ForgetPassword() {
                 toast.error(err.response.data.message)
             })
         }
-
     }
 
     const handleResetPassword = async (e) => {

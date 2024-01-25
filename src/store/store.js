@@ -8,8 +8,7 @@ import siteReducer from "./slice/siteSlice";
 import { buyerApi } from "@/feature/api/buyerApi";
 import { siteApi } from "@/feature/api/siteApi";
 import { sellerApi } from "@/feature/api/sellerApi";
-
-
+import { userApi } from "@/feature/api/AuthAPi";
 
 const rootReducer = combineReducers({
     dashboard: dashboardReducer,
@@ -20,7 +19,8 @@ const rootReducer = combineReducers({
     site: siteReducer,
     [sellerApi.reducerPath]: sellerApi.reducer,
     [buyerApi.reducerPath]: buyerApi.reducer,
-    [siteApi.reducerPath]: siteApi.reducer
+    [siteApi.reducerPath]: siteApi.reducer,
+    [userApi.reducerPath]: userApi.reducer
 })
 
 
@@ -28,7 +28,7 @@ const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: true,
-    }).concat(sellerApi.middleware, buyerApi.middleware, siteApi.middleware),
+    }).concat(sellerApi.middleware, buyerApi.middleware, siteApi.middleware, userApi.middleware),
 });
 
 export default store

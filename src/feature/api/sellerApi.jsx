@@ -5,8 +5,10 @@ export const sellerApi = createApi({
     reducerPath: "sellerApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:4400/api/v1/",
+        // baseUrl: "http://bharat-escrow-real-state-api.onrender.com/api/v1/",
         prepareHeaders: (headers, { getState }) => {
             if (true) {
+                console.log("amanToken==>", getToken())
                 headers.set("Authorization", `Bearer ${getToken()}`);
             }
             return headers;
@@ -19,9 +21,10 @@ export const sellerApi = createApi({
             query: () => "seller/list-seller",
             providesTags: ["Seller"],
             transformResponse: (response) => {
+                console.log("response in sellerAPI listSeller", response)
                 return response.result
             },
-            // merge: (existingData, newData) => [...e xistingData, ...newData],
+            // merge: (existingData, newData) => [...existingData, ...newData],
         }),
 
         addSeller: builder.mutation({

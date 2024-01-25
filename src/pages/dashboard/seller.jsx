@@ -29,6 +29,7 @@ export function Seller() {
 
   // RTK Query 
   const { data: fetchedSellerData, isError, isLoading, isSuccess } = useFetchSellersQuery();
+  console.log("seller.jsx==>", fetchedSellerData)
   const [deleteSeller] = useDeleteSellerMutation()
 
   useEffect(() => {

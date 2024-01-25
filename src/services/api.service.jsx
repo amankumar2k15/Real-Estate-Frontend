@@ -29,6 +29,8 @@ export const GenerateOtpForPasswordReset = async (data) => {
 export const ResetPassword = async (data) => {
     return await axios.post(`${VITE_BACKEND_PORT_DEVELOPMENT}user/reset-password`, data);
 };
+
+
 export const RegisterGoogleService = async () => {
     return await axios.get(`${VITE_BACKEND_PORT_DEVELOPMENT}register`);
 };
